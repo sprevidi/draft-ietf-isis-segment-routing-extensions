@@ -393,7 +393,7 @@ where:</artwork>
                 received.</t>
               </list></t>
 
-            <t>Algorithm: one octet identifiying the algorithm to which the
+            <t>Algorithm: one octet identifying the algorithm to which the
             Prefix-SID is associated. The following value has been defined:
             <list style="hanging">
                 <t>0: Shortest Path First (SPF) algorithm based on link
@@ -406,7 +406,7 @@ where:</artwork>
 
             <t>SID/Index: 32 bit index defining the offset in the SID/Label
             space advertised by this router using the encodings defined in
-            <xref target="SRCAP"/>.</t>
+            <xref target="SR-RANGE"/>.</t>
           </list></t>
 
         <t>Multiple Prefix-SIDs Sub-TLVs MAY appear on the same prefix in
@@ -477,12 +477,6 @@ where:</artwork>
             <t>TLV-141 <xref target="RFC5316"/></t>
           </list></t>
 
-        <t>Currently, <xref target="RFC5316"/> defines TLV-141 with the
-        purpose of inter-AS connectivity. In the Segment Routing context, we
-        relax the constraint and we allow TLV-141 to be used for advertising
-        any link that is external to the IS-IS domain no matter if it connects
-        another AS or not.</t>
-
         <t>Multiple Adj-SID Sub-TLVs MAY be associated with a single
         IS-neighbor. Examples where more than one Adj-SID may be used per
         IS-neighbor are described in <xref
@@ -530,7 +524,7 @@ where:</artwork>
                 </list></t>
 
               <t>Weight: 1 octet. The value represents the weight of the
-              Adj-SID for the prupose of load balancing. The use of the weight
+              Adj-SID for the purpose of load balancing. The use of the weight
               is defined in <xref
               target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
 
@@ -614,7 +608,7 @@ where: </artwork>
                 </list></t>
 
               <t>Weight: 1 octet. The value represents the weight of the
-              Adj-SID for the prupose of load balancing. The use of the weight
+              Adj-SID for the purpose of load balancing. The use of the weight
               is defined in <xref
               target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
 
@@ -984,67 +978,42 @@ where: </artwork>
       </section>
     </section>
 
-    <section title="Segment Routing Capabilities">
-      <t>Segment Routing requires each router to advertise its capabilities to
-      the rest of the routing domain. IS-IS Router Capability TLV-242 is
-      defined in <xref target="RFC4971"/> and describes the router
-      capabilities. For the purposes of Segment Routing we define following
-      additional Sub-TLV: <list style="hanging">
-          <t>Segment Routing Capability Sub-TLV (SR-Cap)</t>
-        </list></t>
+    <section title="Router Capability TLV and SID/Label Range">
+      <t>Segment Routing requires each router to advertise the range of
+      SID/Label values it uses for Segment Routing. The SID/Label ranges are
+      advertised using the newly defined SID/Label Range Sub-TLV inserted into
+      the IS-IS Router Capability TLV-242 that is defined in <xref
+      target="RFC4971"/>. </t>
 
       <t>The Router Capability TLV specifies flags that control its
-      advertisement. The SR-Cap Sub-TLV MUST be propagated throughout the
-      entire routing domain and therefore the Router Capability TLV
-      distribution flags MUST be set accordingly, i.e.: the S flag must be set
-      and the D flag MUST be set when the Capability TLV is leaked into
-      level-1.</t>
+      advertisement. The SID/Label Range Sub-TLV MUST be propagated throughout
+      the level and need not to be advertised across level boundaries.
+      Therefore Router Capability TLV distribution flags MUST be set
+      accordingly, i.e.: the S flag MUST be unset.</t>
 
-      <section anchor="SRCAP"
-               title="Segment Routing Capability Sub-TLV (SR-Cap)">
-        <t>The SR-Cap Sub-TLV is advertised by the SR-capable router in order
-        to advertise its support of SR signaling.</t>
-
-        <t>The SR-Cap Sub-TLV MUST appear only once and has following
-        format:<figure>
+      <section anchor="SR-RANGE" title="SID/Label Range Sub-TLV">
+        <t>The SID/Label Range Sub-TLV is optional, MAY appear multiple times
+        inside the Router Capability TLV and has following format:<figure>
             <artwork>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Type        |     Length    |  Flags        |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                        First SID/Label Value                  |
+|   Type        |     Length    |           Range               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                        Last SID/Label Value                   |
+|                  SID/Label Sub-TLV (variable)                 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 where: </artwork>
           </figure><list style="hanging">
             <t>Type: TBA.</t>
 
-            <t>Length: 1 octet + 8 octets if SID Values are advertised.</t>
+            <t>Length: variable.</t>
 
-            <t>Flags: 2 octets field of following flags:<figure>
-                <artwork>
-        0              
-        0 1 2 3 4 5 6 7 
-       +-+-+-+-+-+-+-+-+
-       |S|             | 
-       +-+-+-+-+-+-+-+-+
+            <t>Range: 2 octet value defining the number of values of the range
+            from the starting value defined in the SID/Label Sub-TLV.</t>
 
-       where:</artwork>
-              </figure><list style="hanging">
-                <t>S-Flag: SID space flag. If set, the router advertises SID
-                space.</t>
-
-                <t>Other bits: MUST be zero when originated and ignored when
-                received.</t>
-              </list></t>
-
-            <t>First SID/Label Value and Last SID/Label Value represent the
-            local SID or Label range of the router. The semantic and
-            procedures of these values are described in <xref
-            target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
+            <t>SID/Label Sub-TLV: SID/Label value as defined in <xref
+            target="SIDLABEL"/>.</t>
           </list></t>
       </section>
     </section>
