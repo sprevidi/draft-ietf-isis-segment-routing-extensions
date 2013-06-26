@@ -671,7 +671,7 @@ where: </artwork>
       significant and needs to be tracked.
       </t>
 
-      <t>The SID/Label Binding TLV has type 149 and has the following format:</t>
+      <t>The SID/Label Binding TLV has type TBA and has the following format:</t>
 
         <figure anchor="SID-MPLS-Binding-TLV-figure" title="SID/Label Binding TLV format">
           <artwork>
@@ -734,7 +734,7 @@ where: </artwork>
 	</section>
 
 	<section title="IPv4 ERO subTLV">
-	  <t>The IPv4 ERO subTLV (Type 1) describes a path segment using IPv4 address style of encoding.
+	  <t>The IPv4 ERO subTLV (Type: TBA) describes a path segment using IPv4 address style of encoding.
 	  Its semantics have been borrowed from <xref target="RFC3209"/>.
 	  </t>
 
@@ -758,7 +758,7 @@ where: </artwork>
 	</section> <!-- end IPv4 ERO subtLV -->
 
 	<section title="IPv6 ERO subTLV">
-	  <t>The IPv6 ERO subTLV (Type 2) describes a path segment using IPv6 Address style of encoding.
+	  <t>The IPv6 ERO subTLV (Type: TBA) describes a path segment using IPv6 Address style of encoding.
 	  Its semantics have been borrowed from <xref target="RFC3209"/>.
 	  </t>
 
@@ -793,7 +793,7 @@ where: </artwork>
 	  have been borrowed from <xref target="RFC3477"> Section 4</xref>.
 	  </t>
 
-	  <t>The Unnumbered Interface-ID ERO subTLV (Type 9)
+	  <t>The Unnumbered Interface-ID ERO subTLV (Type: TBA)
 	  describes a path segment that spans over an unnumbered
 	  interface. Unnumbered interfaces are referenced using the
 	  interface index. Interface indices are assigned local to
@@ -847,7 +847,8 @@ where: </artwork>
 	</section> <!-- end Unnumbered Interface ID ERO subtLV -->
 
 	<section title="IPv4 Prefix Backup ERO subTLV">
-	  <t>The IPv4 Backup ERO subTLV (Type 3) describes a Backup LSP path segment
+	  <t>The IPv4 Backup ERO subTLV (Type: TBA) describes
+	  a Backup LSP path segment
 	  using IPv4 Address style of encoding.
 	  Its appearance and semantics have been borrowed from
 	  <xref target="RFC3209"/>.
@@ -875,7 +876,7 @@ where: </artwork>
 	</section> <!-- end IPv4 Backup ERO subtLV -->
 
 	<section title="IPv6 Prefix ERO subTLV">
-	  <t>The IPv6 ERO subTLV (Type 4) describes a Backup LSP path segment
+	  <t>The IPv6 ERO subTLV (Type: TBA) describes a Backup LSP path segment
 	  using IPv6 Address style of encoding.
 	  Its appearance and semantics have been borrowed from
 	  <xref target="RFC3209"/>.
@@ -913,7 +914,7 @@ where: </artwork>
 	  have been borrowed from <xref target="RFC3477"> Section 4</xref>.
 	  </t>
 
-	  <t>The Unnumbered Interface-ID Backup ERO subTLV (Type 10)
+	  <t>The Unnumbered Interface-ID Backup ERO subTLV (Type: TBA)
 	  describes a Backup LSP path segment that spans over an unnumbered
 	  interface. Unnumbered interfaces are referenced using the
 	  interface index. Interface indices are assigned local to
