@@ -679,12 +679,12 @@ where: </artwork>
           <artwork>
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |      Type     |     Length    |
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |F|M|S| Reserved|     Weight    | Prefix Length |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                      FEC Prefix (variable)                    |
+  |      Type     |     Length    |F|M|S| Reserved|     Weight    |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |            Range              | Prefix Length |  FEC Prefix   |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //           FEC Prefix (continued, variable)                  //
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |                   optional subTLVs (variable)                 |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -732,9 +732,86 @@ where: </artwork>
             </list></t>
         </section>
 
+        <section title="Weight">
+	  <t>Weight: 1 octet: The value represents the weight of the
+	  path for the purpose of load balancing. The use of the weight
+	  is defined in <xref target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
+	</section>
+
+	<section title="Range">
+
+          <t>The 'Range' field provides the ability to specify a
+          range of addresses and their associated Prefix SIDs. It is essentially
+	  a compression scheme to distribute a continguous Prefix and
+	  their continguous, corresponding SID/Label Block.
+
+	  If a single SID is advertised then the range field MUST be set
+	  to one. For range advertisments > 1, the number of addresses
+          that need to be mapped into a Prefix-SID and the starting value of
+          the Prefix-SID range.</t>
+
+          <t>Example 1: if the following router addresses (loopback addresses)
+          need to be mapped into the corresponding Prefix-SIDs: <figure
+              suppress-title="true">
+              <artwork>
+Router-A: 192.0.2.1/32, Prefix-SID: 1001
+Router-B: 192.0.2.2/32, Prefix-SID: 1002
+Router-C: 192.0.2.3/32, Prefix-SID: 1003
+Router-D: 192.0.2.4/32, Prefix-SID: 1004</artwork>
+            </figure><figure suppress-title="true">
+
+              <artwork>
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |      Type     |     Length    |0|0|1| Reserved|     Weight    |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |            Range = 4            |       /32   |      192      |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |       .0      |        .2       |       .1    |  SubTLV Type  |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  | SubTLV Length |                                          1001 |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</artwork>
+            </figure></t>
+
+          <t>Example-2: If the following prefixes need to be mapped into the
+          corresponding Prefix-SIDs: <figure suppress-title="true">
+              <artwork>
+10.1.1/24, Prefix-SID: 2001
+10.1.2/24, Prefix-SID: 2002
+10.1.3/24, Prefix-SID: 2003
+10.1.4/24, Prefix-SID: 2004
+10.1.5/24, Prefix-SID: 2005
+10.1.6/24, Prefix-SID: 2006
+10.1.7/24, Prefix-SID: 2007</artwork>
+            </figure><figure suppress-title="true">
+              <artwork>
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |      Type     |     Length    |0|0|1| Reserved|     Weight    |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |            Range = 7            |       /24   |      10       |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |       .1      |        .1       | SubTLV Type | SubTLV Length |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                                                          2001 |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+              </artwork>
+            </figure></t>
+
+
+<!-- FIXME -->
+	    <t>
+	      Advertising non-contiguos ranges TBD.
+	    </t>
+
+	</section>
+
         <section title="Prefix Length, Prefix">
           <t>The 'FEC Prefix' represents the Forwarding equivalence class at
-          the tail-end of the advertised path. The 'FEC Prefix does not need
+          the tail-end of the advertised path. The 'FEC Prefix' does not need
           to correspond to a routable prefix of the originating node.</t>
 
           <t>The 'Prefix Length' field contains the length of the prefix in
