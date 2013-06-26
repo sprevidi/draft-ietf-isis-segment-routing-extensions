@@ -456,12 +456,12 @@ where:</artwork>
             router. I.e.: the prefix is configured on one of the local
             interfaces. (e.g.: loopback).</t>
 
-            <t>The prefix to which the Prefix-SID is attached has a mask
-            length of 32.</t>
+            <t>The prefix to which the Prefix-SID is attached has a length of
+            32.</t>
           </list></t>
 
         <t>The router MUST ignore the N-Flag on a received Prefix-SID if the
-        prefix has a mask length different than 32.</t>
+        prefix has a length different than 32.</t>
 
         <t>The router behavior determined by the P, R and N flags are
         described in <xref
@@ -649,7 +649,7 @@ where: </artwork>
       </section>
 
       <section title="SID/Label Binding TLV">
-        <t>The SID/Label Binding TLV may be originated by any router in an
+        <t>The SID/Label Binding TLV MAY be originated by any router in an
         IS-IS domain. The router may advertise a SID/Label binding to a FEC
         along with at least a single 'nexthop style' anchor. The protocol
         supports more than one 'nexthop style' anchor to be attached to a
