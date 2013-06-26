@@ -837,8 +837,8 @@ where: </artwork>
         </figure>
 	</section> <!-- end Unnumbered Interface ID ERO subtLV -->
 
-	<section title="IPv4 Prefix Bypass ERO subTLV">
-	  <t>The IPv4 Bypass ERO subTLV (Type 3) describes a Bypass LSP path segment
+	<section title="IPv4 Prefix Backup ERO subTLV">
+	  <t>The IPv4 Backup ERO subTLV (Type 3) describes a Backup LSP path segment
 	  using IPv4 Address style of encoding.
 	  Its appearance and semantics have been borrowed from
 	  <xref target="RFC3209"/>.
@@ -850,8 +850,8 @@ where: </artwork>
 	    value of the attribute is 'strict.'
 	  </t>
 
-        <figure anchor="IPv4-Bypass-ERO-subTLV-figure"
-		title="IPv4 Bypass ERO subTLV format">
+        <figure anchor="IPv4-Backup-ERO-subTLV-figure"
+		title="IPv4 Backup ERO subTLV format">
           <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -863,10 +863,10 @@ where: </artwork>
     0                   1                   2                   3
   </artwork> 
         </figure>
-	</section> <!-- end IPv4 Bypass ERO subtLV -->
+	</section> <!-- end IPv4 Backup ERO subtLV -->
 
 	<section title="IPv6 Prefix ERO subTLV">
-	  <t>The IPv6 ERO subTLV (Type 4) describes a Bypass LSP path segment
+	  <t>The IPv6 ERO subTLV (Type 4) describes a Backup LSP path segment
 	  using IPv6 Address style of encoding.
 	  Its appearance and semantics have been borrowed from
 	  <xref target="RFC3209"/>.
@@ -878,8 +878,8 @@ where: </artwork>
 	    value of the attribute is 'strict.'
 	  </t>
 
-        <figure anchor="IPv6-Bypass-ERO-subTLV-figure"
-		title="IPv6 Bypass ERO subTLV format">
+        <figure anchor="IPv6-Backup-ERO-subTLV-figure"
+		title="IPv6 Backup ERO subTLV format">
           <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -896,16 +896,16 @@ where: </artwork>
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   </artwork>
         </figure>
-	</section> <!-- end IPv6 Bypass ERO subtLV -->
+	</section> <!-- end IPv6 Backup ERO subtLV -->
 
-	<section title="Unnumbered Interface ID Bypass ERO subTLV">
+	<section title="Unnumbered Interface ID Backup ERO subTLV">
 
 	  <t>The appearance and semantics of the 'Unnumbered Interface ID'
 	  have been borrowed from <xref target="RFC3477"> Section 4</xref>.
 	  </t>
 
-	  <t>The Unnumbered Interface-ID Bypass ERO subTLV (Type 10)
-	  describes a Bypass LSP path segment that spans over an unnumbered
+	  <t>The Unnumbered Interface-ID Backup ERO subTLV (Type 10)
+	  describes a Backup LSP path segment that spans over an unnumbered
 	  interface. Unnumbered interfaces are referenced using the
 	  interface index. Interface indices are assigned local to
 	  the router and therefore not unique within a domain. All elements
@@ -941,8 +941,8 @@ where: </artwork>
 	    value of the attribute is 'strict.'
 	  </t>
 
-        <figure anchor="Unnumbered-Interface-ID-Bypass-ERO-subTLV-figure"
-		title="Unnumbered Interface ID Bypass ERO subTLV format">
+        <figure anchor="Unnumbered-Interface-ID-Backup-ERO-subTLV-figure"
+		title="Unnumbered Interface ID Backup ERO subTLV format">
           <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -955,18 +955,18 @@ where: </artwork>
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   </artwork> 
         </figure>
-	</section> <!-- end Unnumbered Interface ID Bypass ERO subtLV -->
+	</section> <!-- end Unnumbered Interface ID Backup ERO subtLV -->
 
-	<section title="Prefix ERO and Prefix Bypass ERO subTLV path semantics">
+	<section title="Prefix ERO and Prefix Backup ERO subTLV path semantics">
 	  <t>
-	    All 'ERO' and 'Bypass ERO' information represents
+	    All 'ERO' and 'Backup ERO' information represents
 	    an ordered set
 	    which describes the segments of a path. The last
 	    ERO subTLV describes the segment closest to the egress point of the
 	    path. Contrary the first ERO subTLV describes the first segment
 	    of a path. If a router extends or stitches a label
 	    switched path it MUST prepend the new segments path information to the
-	    ERO list. The same ordering applies for the Bypass ERO
+	    ERO list. The same ordering applies for the Backup ERO
 	    labels. An implementation SHOULD first encode all primary path
 	    EROs followed by the bypass EROs.
 	  </t>
