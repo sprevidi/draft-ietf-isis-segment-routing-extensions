@@ -308,7 +308,7 @@
 
       <section anchor="SIDLABEL" title="SID/Label Sub-TLV">
         <t>The SID Sub-TLV is present in multiple Sub-TLVs defined in this
-        document and contains a SID or Label. The SID Sub-TLV has the
+        document and contains a SID or a MPLS Label. The SID Sub-TLV has the
         following format: <figure>
             <artwork>
  0                   1                   2                   3
@@ -326,7 +326,7 @@ where:</artwork>
             <t>Length: variable (3 or 4)</t>
 
             <t>SID/Label: if length is set to 3 then the 20 rightmost bits
-            represent a label. If length is 4 then the value represents a 32
+            represent a MPLS label. If length is 4 then the value represents a 32
             bits SID.</t>
           </list></t>
       </section>
@@ -646,8 +646,7 @@ where: </artwork>
 
     <section title="SID/Label Binding TLV">
       <t>The SID/Label Binding TLV may be originated by any
-      <xref target="RFC5305">Traffic Engineering</xref>
-      capable router in an IS-IS domain. The router may advertise a SID/Label
+      router in an IS-IS domain. The router may advertise a SID/Label
       binding to a FEC along with at least a single 'nexthop style' anchor.
       The protocol supports more than one 'nexthop style' anchor
       to be attached to a SID/Label binding, which results into a simple path
