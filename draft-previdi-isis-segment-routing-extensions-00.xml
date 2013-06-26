@@ -243,7 +243,16 @@
 
     <date day="11" month="June" year="2013"/>
 
+    <area>Routing</area>
+
     <workgroup>IS-IS for IP Internets</workgroup>
+
+    <keyword>MPLS</keyword>
+    <keyword>SID</keyword>
+    <keyword>IGP</keyword>
+    <keyword>IS-IS</keyword>
+    <keyword>Label advertisement</keyword>
+    <keyword>Segment Routing</keyword>
 
     <abstract>
       <t>Segment Routing (SR) allows for a flexible definition of end-to-end
