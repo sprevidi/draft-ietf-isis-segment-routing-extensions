@@ -248,10 +248,15 @@
     <workgroup>IS-IS for IP Internets</workgroup>
 
     <keyword>MPLS</keyword>
+
     <keyword>SID</keyword>
+
     <keyword>IGP</keyword>
+
     <keyword>IS-IS</keyword>
+
     <keyword>Label advertisement</keyword>
+
     <keyword>Segment Routing</keyword>
 
     <abstract>
@@ -303,8 +308,8 @@
       <t>Segment Routing architecture (<xref
       target="draft-filsfils-rtgwg-segment-routing-00"/>) defines different
       types of Segment Identifiers (SID). This document defines the IS-IS
-      encodings for the IGP-Prefix-SID, IGP-Adjacency-SID and
-      LAN-Adjacency-SID.</t>
+      encodings for the IGP-Prefix-SID, the IGP-Adjacency-SID, the
+      IGP-LAN-Adjacency-SID and the Binding-SID.</t>
 
       <section anchor="SIDLABEL" title="SID/Label Sub-TLV">
         <t>The SID Sub-TLV is present in multiple Sub-TLVs defined in this
@@ -326,8 +331,8 @@ where:</artwork>
             <t>Length: variable (3 or 4)</t>
 
             <t>SID/Label: if length is set to 3 then the 20 rightmost bits
-            represent a MPLS label. If length is 4 then the value represents a 32
-            bits SID.</t>
+            represent a MPLS label. If length is 4 then the value represents a
+            32 bits SID.</t>
           </list></t>
       </section>
 
@@ -643,34 +648,34 @@ where: </artwork>
         </section>
       </section>
 
-        <section title="SID/Label Binding TLV">
-          <t>The SID/Label Binding TLV may be originated by any router in an
-          IS-IS domain. The router may advertise a SID/Label binding to a FEC
-          along with at least a single 'nexthop style' anchor. The protocol
-          supports more than one 'nexthop style' anchor to be attached to a
-          SID/Label binding, which results into a simple path description
-          language. In analogy to RSVP the terminology for this is called an
-          'Explicit Route Object' (ERO). Since ERO style path notation allows
-          to anchor SID/label bindings to to both link and node IP addresses
-          any label switched path, can be described. Furthermore also
-          SID/Label Bindings from external protocols can get easily
-          re-advertised.</t>
+      <section title="SID/Label Binding TLV">
+        <t>The SID/Label Binding TLV may be originated by any router in an
+        IS-IS domain. The router may advertise a SID/Label binding to a FEC
+        along with at least a single 'nexthop style' anchor. The protocol
+        supports more than one 'nexthop style' anchor to be attached to a
+        SID/Label binding, which results into a simple path description
+        language. In analogy to RSVP the terminology for this is called an
+        'Explicit Route Object' (ERO). Since ERO style path notation allows to
+        anchor SID/label bindings to to both link and node IP addresses any
+        label switched path, can be described. Furthermore also SID/Label
+        Bindings from external protocols can get easily re-advertised.</t>
 
-          <!-- FIXME -->
+        <!-- FIXME -->
 
-          <t>Due to the limited size of subTLV space (See <xref
-          target="RFC5311"/> section 4.5 for details), The SID/Label binding
-          TLV has cumulative rather than canceling semantics. If a router
-          originates more than one SID/Label Binding Label TLV with the same
-          FEC and SID/Label value, then the subTLVs of the second, third, etc.
-          TLV are accumulated. Since some subTLVs represent an ordered set
-          (e.g. ERO subTLVs) allocation and ordering of TLV space inside
-          particular IS-IS LSP fragment is significant and needs to be
-          tracked.</t>
+        <t>Due to the limited size of subTLV space (See <xref
+        target="RFC5311"/> section 4.5 for details), The SID/Label binding TLV
+        has cumulative rather than canceling semantics. If a router originates
+        more than one SID/Label Binding Label TLV with the same FEC and
+        SID/Label value, then the subTLVs of the second, third, etc. TLV are
+        accumulated. Since some subTLVs represent an ordered set (e.g. ERO
+        subTLVs) allocation and ordering of TLV space inside particular IS-IS
+        LSP fragment is significant and needs to be tracked.</t>
 
-      <t>The SID/Label Binding TLV has type TBA and has the following format:</t>
+        <t>The SID/Label Binding TLV has type TBA and has the following
+        format:</t>
 
-        <figure anchor="SID-MPLS-Binding-TLV-figure" title="SID/Label Binding TLV format">
+        <figure anchor="SID-MPLS-Binding-TLV-figure"
+                title="SID/Label Binding TLV format">
           <artwork>
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -684,75 +689,74 @@ where: </artwork>
   |                   optional subTLVs (variable)                 |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	  </artwork>
-	</figure>
+        </figure>
 
-          <t><list style="symbols">
-              <t/>
+        <t><list style="symbols">
+            <t/>
 
-              <t>1 octet of flags, consisting of: <list style="symbols">
-                  <t>1 Bit of Adress Family 'F'</t>
+            <t>1 octet of flags, consisting of: <list style="symbols">
+                <t>1 Bit of Adress Family 'F'</t>
 
-                  <t>1 Bit of Mirror Context 'M'</t>
+                <t>1 Bit of Mirror Context 'M'</t>
 
-                  <t>1 Bit of subTLV presence 'S'</t>
+                <t>1 Bit of subTLV presence 'S'</t>
 
-                  <t>5 bits are reserved 'R' for future use</t>
-                </list></t>
-
-              <t>1 octet of Prefix length</t>
-
-              <t>Prefix (variable length)</t>
-
-              <t>2 octets of Range</t>
-
-              <t>sub-TLVs, where each sub-TLV consists of a sequence of: <list
-                  style="symbols">
-                  <t>1 octet of sub-TLV type</t>
-
-                  <t>1 octet of length of the value field of the sub-TLV</t>
-
-                  <t>0-255 octets of value</t>
-                </list></t>
-            </list></t>
-
-          <section title="Flags">
-            <t>Flags <list style="hanging">
-                <t>Adress Family 'F' Bit: set if the Prefix is IPv6, reset if
-                the Prefix is IPv4</t>
-
-                <t>Mirror Context 'M' Bit: set if the advertised SID/path
-                corresponds to a mirrored context.</t>
-
-                <t>subTLV present 'S' Bit: set if there are subTLVs
-                present.</t>
+                <t>5 bits are reserved 'R' for future use</t>
               </list></t>
-          </section>
 
-          <section title="Prefix Length, Prefix">
-            <t>The 'FEC Prefix' represents the Forwarding equivalence class at
-            the tail-end of the advertised path. The 'FEC Prefix does not need
-            to correspond to a routable prefix of the originating node.</t>
+            <t>1 octet of Prefix length</t>
 
-            <t>The 'Prefix Length' field contains the length of the prefix in
-            bits. Only the most significant octets of the Prefix FEC are
-            encoded. I.e. 1 octet for FEC prefix length 1 up to 8, 2 octets
-            for FEC prefix length 9 to 16, 3 octets for FEC prefix length 17
-            up to 24 and 4 octets for FEC prefix length 25 up to 32, ...., 16
-            octets for FEC prefix length 113 up to 128.</t>
-          </section>
+            <t>Prefix (variable length)</t>
 
-          <section title="IPv4 ERO subTLV">
-            <t>The IPv4 ERO subTLV (Type TBA) describes a path segment using
-            IPv4 address style of encoding. Its semantics have been borrowed
-            from <xref target="RFC3209"/>.</t>
+            <t>2 octets of Range</t>
 
-            <t>The 'L' bit in the Flags is a one-bit attribute. If the L bit
-            is set, then the value of the attribute is 'loose.' Otherwise, the
-            value of the attribute is 'strict.'</t>
+            <t>sub-TLVs, where each sub-TLV consists of a sequence of: <list
+                style="symbols">
+                <t>1 octet of sub-TLV type</t>
 
-	    <figure anchor="IPv4-ERO-subTLV-figure"
-		    title="IPv4 ERO subTLV format">
-          <artwork>
+                <t>1 octet of length of the value field of the sub-TLV</t>
+
+                <t>0-255 octets of value</t>
+              </list></t>
+          </list></t>
+
+        <section title="Flags">
+          <t>Flags <list style="hanging">
+              <t>Adress Family 'F' Bit: set if the Prefix is IPv6, reset if
+              the Prefix is IPv4</t>
+
+              <t>Mirror Context 'M' Bit: set if the advertised SID/path
+              corresponds to a mirrored context.</t>
+
+              <t>subTLV present 'S' Bit: set if there are subTLVs present.</t>
+            </list></t>
+        </section>
+
+        <section title="Prefix Length, Prefix">
+          <t>The 'FEC Prefix' represents the Forwarding equivalence class at
+          the tail-end of the advertised path. The 'FEC Prefix does not need
+          to correspond to a routable prefix of the originating node.</t>
+
+          <t>The 'Prefix Length' field contains the length of the prefix in
+          bits. Only the most significant octets of the Prefix FEC are
+          encoded. I.e. 1 octet for FEC prefix length 1 up to 8, 2 octets for
+          FEC prefix length 9 to 16, 3 octets for FEC prefix length 17 up to
+          24 and 4 octets for FEC prefix length 25 up to 32, ...., 16 octets
+          for FEC prefix length 113 up to 128.</t>
+        </section>
+
+        <section title="IPv4 ERO subTLV">
+          <t>The IPv4 ERO subTLV (Type TBA) describes a path segment using
+          IPv4 address style of encoding. Its semantics have been borrowed
+          from <xref target="RFC3209"/>.</t>
+
+          <t>The 'L' bit in the Flags is a one-bit attribute. If the L bit is
+          set, then the value of the attribute is 'loose.' Otherwise, the
+          value of the attribute is 'strict.'</t>
+
+          <figure anchor="IPv4-ERO-subTLV-figure"
+                  title="IPv4 ERO subTLV format">
+            <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -761,23 +765,23 @@ where: </artwork>
    |          IPv4 address  (continued)            |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	  </artwork>
-            </figure>
-          </section>
+          </figure>
+        </section>
 
-          <!-- end IPv4 ERO subtLV -->
+        <!-- end IPv4 ERO subtLV -->
 
-          <section title="IPv6 ERO subTLV">
-            <t>The IPv6 ERO subTLV (Type TBA) describes a path segment using
-            IPv6 Address style of encoding. Its semantics have been borrowed
-            from <xref target="RFC3209"/>.</t>
+        <section title="IPv6 ERO subTLV">
+          <t>The IPv6 ERO subTLV (Type TBA) describes a path segment using
+          IPv6 Address style of encoding. Its semantics have been borrowed
+          from <xref target="RFC3209"/>.</t>
 
-            <t>The 'L' bit in the Flags is a one-bit attribute. If the L bit
-            is set, then the value of the attribute is 'loose.' Otherwise, the
-            value of the attribute is 'strict.'</t>
+          <t>The 'L' bit in the Flags is a one-bit attribute. If the L bit is
+          set, then the value of the attribute is 'loose.' Otherwise, the
+          value of the attribute is 'strict.'</t>
 
-            <figure anchor="IPv6-ERO-subTLV-figure"
-                    title="IPv6 ERO subTLV format">
-              <artwork>
+          <figure anchor="IPv6-ERO-subTLV-figure"
+                  title="IPv6 ERO subTLV format">
+            <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -792,58 +796,58 @@ where: </artwork>
    | IPv6 Address (continued)                      |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   </artwork>
-            </figure>
-          </section>
+          </figure>
+        </section>
 
-          <!-- end IPv6 ERO subtLV -->
+        <!-- end IPv6 ERO subtLV -->
 
-          <section title="Unnumbered Interface ID ERO subTLV">
-            <t>The appearance and semantics of the 'Unnumbered Interface ID'
-            have been borrowed from <xref target="RFC3477"> Section
-            4</xref>.</t>
+        <section title="Unnumbered Interface ID ERO subTLV">
+          <t>The appearance and semantics of the 'Unnumbered Interface ID'
+          have been borrowed from <xref target="RFC3477"> Section
+          4</xref>.</t>
 
-            <t>The Unnumbered Interface-ID ERO subTLV (Type TBA) describes a
-            path segment that spans over an unnumbered interface. Unnumbered
-            interfaces are referenced using the interface index. Interface
-            indices are assigned local to the router and therefore not unique
-            within a domain. All elements in an ERO path need to be unique
-            within a domain and hence need to be disambiguated using a domain
-            unique Router-ID.</t>
+          <t>The Unnumbered Interface-ID ERO subTLV (Type TBA) describes a
+          path segment that spans over an unnumbered interface. Unnumbered
+          interfaces are referenced using the interface index. Interface
+          indices are assigned local to the router and therefore not unique
+          within a domain. All elements in an ERO path need to be unique
+          within a domain and hence need to be disambiguated using a domain
+          unique Router-ID.</t>
 
-            <t>The 'Router-ID' field contains the router ID of the router
-            which has assigned the 'Interface ID' field. Its purpose is to
-            disambiguate the 'Interface ID' field from other routers in the
-            domain.</t>
+          <t>The 'Router-ID' field contains the router ID of the router which
+          has assigned the 'Interface ID' field. Its purpose is to
+          disambiguate the 'Interface ID' field from other routers in the
+          domain.</t>
 
-            <t>IS-IS supports two Router-ID formats:</t>
+          <t>IS-IS supports two Router-ID formats:</t>
 
-            <t><list style="symbols">
-                <t><xref target="RFC5305">(TLV 134, 32-Bit format)</xref></t>
+          <t><list style="symbols">
+              <t><xref target="RFC5305">(TLV 134, 32-Bit format)</xref></t>
 
-                <t><xref target="RFC6119">(TLV 140, 128-Bit format)</xref></t>
-              </list></t>
+              <t><xref target="RFC6119">(TLV 140, 128-Bit format)</xref></t>
+            </list></t>
 
-            <t>The actual Router-ID format gets derived from the 'Length'
-            field.</t>
+          <t>The actual Router-ID format gets derived from the 'Length'
+          field.</t>
 
-            <t><list style="symbols">
-                <t>For 32-Bit Router-ID width the subTLV length is set to 8
-                octets.</t>
+          <t><list style="symbols">
+              <t>For 32-Bit Router-ID width the subTLV length is set to 8
+              octets.</t>
 
-                <t>For 128-Bit Router-ID width the subTLV length is set to 20
-                octets.</t>
-              </list></t>
+              <t>For 128-Bit Router-ID width the subTLV length is set to 20
+              octets.</t>
+            </list></t>
 
-            <t>The 'Interface ID' is the identifier assigned to the link by
-            the router specified by the router ID.</t>
+          <t>The 'Interface ID' is the identifier assigned to the link by the
+          router specified by the router ID.</t>
 
-            <t>The 'L' bit in the Flags is a one-bit attribute. If the L bit
-            is set, then the value of the attribute is 'loose.' Otherwise, the
-            value of the attribute is 'strict.'</t>
+          <t>The 'L' bit in the Flags is a one-bit attribute. If the L bit is
+          set, then the value of the attribute is 'loose.' Otherwise, the
+          value of the attribute is 'strict.'</t>
 
-            <figure anchor="Unnumbered-Interface-ID-ERO-subTLV-figure"
-                    title="Unnumbered Interface ID ERO subTLV format">
-              <artwork>
+          <figure anchor="Unnumbered-Interface-ID-ERO-subTLV-figure"
+                  title="Unnumbered Interface ID ERO subTLV format">
+            <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -854,23 +858,23 @@ where: </artwork>
    |                     Interface ID (32 bits)                    |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   </artwork>
-            </figure>
-          </section>
+          </figure>
+        </section>
 
-          <!-- end Unnumbered Interface ID ERO subtLV -->
+        <!-- end Unnumbered Interface ID ERO subtLV -->
 
-          <section title="IPv4 Prefix Backup ERO subTLV">
-            <t>The IPv4 Backup ERO subTLV (Type TBA) describes a Backup LSP path
-            segment using IPv4 Address style of encoding. Its appearance and
-            semantics have been borrowed from <xref target="RFC3209"/>.</t>
+        <section title="IPv4 Prefix Backup ERO subTLV">
+          <t>The IPv4 Backup ERO subTLV (Type TBA) describes a Backup LSP path
+          segment using IPv4 Address style of encoding. Its appearance and
+          semantics have been borrowed from <xref target="RFC3209"/>.</t>
 
-            <t>The 'L' bit in the Flags is a one-bit attribute. If the L bit
-            is set, then the value of the attribute is 'loose.' Otherwise, the
-            value of the attribute is 'strict.'</t>
+          <t>The 'L' bit in the Flags is a one-bit attribute. If the L bit is
+          set, then the value of the attribute is 'loose.' Otherwise, the
+          value of the attribute is 'strict.'</t>
 
-            <figure anchor="IPv4-Backup-ERO-subTLV-figure"
-                    title="IPv4 Backup ERO subTLV format">
-              <artwork>
+          <figure anchor="IPv4-Backup-ERO-subTLV-figure"
+                  title="IPv4 Backup ERO subTLV format">
+            <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -880,23 +884,23 @@ where: </artwork>
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     0                   1                   2                   3
   </artwork>
-            </figure>
-          </section>
+          </figure>
+        </section>
 
-          <!-- end IPv4 Backup ERO subtLV -->
+        <!-- end IPv4 Backup ERO subtLV -->
 
-          <section title="IPv6 Prefix ERO subTLV">
-            <t>The IPv6 ERO subTLV (Type TBA) describes a Backup LSP path
-            segment using IPv6 Address style of encoding. Its appearance and
-            semantics have been borrowed from <xref target="RFC3209"/>.</t>
+        <section title="IPv6 Prefix ERO subTLV">
+          <t>The IPv6 ERO subTLV (Type TBA) describes a Backup LSP path
+          segment using IPv6 Address style of encoding. Its appearance and
+          semantics have been borrowed from <xref target="RFC3209"/>.</t>
 
-            <t>The 'L' bit in the Flags is a one-bit attribute. If the L bit
-            is set, then the value of the attribute is 'loose.' Otherwise, the
-            value of the attribute is 'strict.'</t>
+          <t>The 'L' bit in the Flags is a one-bit attribute. If the L bit is
+          set, then the value of the attribute is 'loose.' Otherwise, the
+          value of the attribute is 'strict.'</t>
 
-            <figure anchor="IPv6-Backup-ERO-subTLV-figure"
-                    title="IPv6 Backup ERO subTLV format">
-              <artwork>
+          <figure anchor="IPv6-Backup-ERO-subTLV-figure"
+                  title="IPv6 Backup ERO subTLV format">
+            <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -911,58 +915,58 @@ where: </artwork>
    | IPv6 Address (continued)                      |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   </artwork>
-            </figure>
-          </section>
+          </figure>
+        </section>
 
-          <!-- end IPv6 Backup ERO subtLV -->
+        <!-- end IPv6 Backup ERO subtLV -->
 
-          <section title="Unnumbered Interface ID Backup ERO subTLV">
-            <t>The appearance and semantics of the 'Unnumbered Interface ID'
-            have been borrowed from <xref target="RFC3477"> Section
-            4</xref>.</t>
+        <section title="Unnumbered Interface ID Backup ERO subTLV">
+          <t>The appearance and semantics of the 'Unnumbered Interface ID'
+          have been borrowed from <xref target="RFC3477"> Section
+          4</xref>.</t>
 
-            <t>The Unnumbered Interface-ID Backup ERO subTLV (Type TBA)
-            describes a Backup LSP path segment that spans over an unnumbered
-            interface. Unnumbered interfaces are referenced using the
-            interface index. Interface indices are assigned local to the
-            router and therefore not unique within a domain. All elements in
-            an ERO path need to be unique within a domain and hence need to be
-            disambiguated using a domain unique Router-ID.</t>
+          <t>The Unnumbered Interface-ID Backup ERO subTLV (Type TBA)
+          describes a Backup LSP path segment that spans over an unnumbered
+          interface. Unnumbered interfaces are referenced using the interface
+          index. Interface indices are assigned local to the router and
+          therefore not unique within a domain. All elements in an ERO path
+          need to be unique within a domain and hence need to be disambiguated
+          using a domain unique Router-ID.</t>
 
-            <t>The 'Router-ID' field contains the router ID of the router
-            which has assigned the 'Interface ID' field. Its purpose is to
-            disambiguate the 'Interface ID' field from other routers in the
-            domain.</t>
+          <t>The 'Router-ID' field contains the router ID of the router which
+          has assigned the 'Interface ID' field. Its purpose is to
+          disambiguate the 'Interface ID' field from other routers in the
+          domain.</t>
 
-            <t>IS-IS supports two Router-ID formats:</t>
+          <t>IS-IS supports two Router-ID formats:</t>
 
-            <t><list style="symbols">
-                <t><xref target="RFC5305">(TLV 134, 32-Bit format)</xref></t>
+          <t><list style="symbols">
+              <t><xref target="RFC5305">(TLV 134, 32-Bit format)</xref></t>
 
-                <t><xref target="RFC6119">(TLV 140, 128-Bit format)</xref></t>
-              </list></t>
+              <t><xref target="RFC6119">(TLV 140, 128-Bit format)</xref></t>
+            </list></t>
 
-            <t>The actual Router-ID format gets derived from the 'Length'
-            field.</t>
+          <t>The actual Router-ID format gets derived from the 'Length'
+          field.</t>
 
-            <t><list style="symbols">
-                <t>For 32-Bit Router-ID width the subTLV length is set to 8
-                octets.</t>
+          <t><list style="symbols">
+              <t>For 32-Bit Router-ID width the subTLV length is set to 8
+              octets.</t>
 
-                <t>For 128-Bit Router-ID width the subTLV length is set to 20
-                octets.</t>
-              </list></t>
+              <t>For 128-Bit Router-ID width the subTLV length is set to 20
+              octets.</t>
+            </list></t>
 
-            <t>The 'Interface ID' is the identifier assigned to the link by
-            the router specified by the router ID.</t>
+          <t>The 'Interface ID' is the identifier assigned to the link by the
+          router specified by the router ID.</t>
 
-            <t>The 'L' bit in the Flags is a one-bit attribute. If the L bit
-            is set, then the value of the attribute is 'loose.' Otherwise, the
-            value of the attribute is 'strict.'</t>
+          <t>The 'L' bit in the Flags is a one-bit attribute. If the L bit is
+          set, then the value of the attribute is 'loose.' Otherwise, the
+          value of the attribute is 'strict.'</t>
 
-            <figure anchor="Unnumbered-Interface-ID-Backup-ERO-subTLV-figure"
-                    title="Unnumbered Interface ID Backup ERO subTLV format">
-              <artwork>
+          <figure anchor="Unnumbered-Interface-ID-Backup-ERO-subTLV-figure"
+                  title="Unnumbered Interface ID Backup ERO subTLV format">
+            <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -973,24 +977,23 @@ where: </artwork>
    |                     Interface ID (32 bits)                    |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   </artwork>
-            </figure>
-          </section>
+          </figure>
+        </section>
 
-          <!-- end Unnumbered Interface ID Backup ERO subtLV -->
+        <!-- end Unnumbered Interface ID Backup ERO subtLV -->
 
-          <section title="Prefix ERO and Prefix Backup ERO subTLV path semantics">
-            <t>All 'ERO' and 'Backup ERO' information represents an ordered
-            set which describes the segments of a path. The last ERO subTLV
-            describes the segment closest to the egress point of the path.
-            Contrary the first ERO subTLV describes the first segment of a
-            path. If a router extends or stitches a label switched path it
-            MUST prepend the new segments path information to the ERO list.
-            The same ordering applies for the Backup ERO labels. An
-            implementation SHOULD first encode all primary path EROs followed
-            by the bypass EROs.</t>
-          </section>
+        <section title="Prefix ERO and Prefix Backup ERO subTLV path semantics">
+          <t>All 'ERO' and 'Backup ERO' information represents an ordered set
+          which describes the segments of a path. The last ERO subTLV
+          describes the segment closest to the egress point of the path.
+          Contrary the first ERO subTLV describes the first segment of a path.
+          If a router extends or stitches a label switched path it MUST
+          prepend the new segments path information to the ERO list. The same
+          ordering applies for the Backup ERO labels. An implementation SHOULD
+          first encode all primary path EROs followed by the bypass EROs.</t>
         </section>
       </section>
+    </section>
 
     <section title="Router Capability TLV and SID/Label Range">
       <t>Segment Routing requires each router to advertise the range of
@@ -1087,13 +1090,9 @@ where: </artwork>
 
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5120.xml"?>
 
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5302.xml"?>
-
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5308.xml"?>
 
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4971.xml"?>
-
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4206.xml"?>
 
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5311.xml"?>
 
@@ -1126,8 +1125,6 @@ where: </artwork>
           <date day="20" month="May" year="2013"/>
         </front>
       </reference>
-
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-minto-rsvp-lsp-egress-fast-protection-02.xml"?>
 
       <?rfc ?>
     </references>
