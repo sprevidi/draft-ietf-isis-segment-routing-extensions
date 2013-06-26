@@ -40,13 +40,13 @@
 
       <address>
         <postal>
-          <street></street>
+          <street/>
 
           <city>Brussels</city>
 
-          <region></region>
+          <region/>
 
-          <code></code>
+          <code/>
 
           <country>BE</country>
         </postal>
@@ -75,16 +75,36 @@
       </address>
     </author>
 
+    <author fullname="Hannes Gredler" initials="H." surname="Gredler">
+      <organization>Juniper Networks, Inc.</organization>
+
+      <address>
+        <postal>
+          <street>1194 N. Mathilda Ave.</street>
+
+          <city>Sunnyvale</city>
+
+          <code>94089</code>
+
+          <region>CA</region>
+
+          <country>US</country>
+        </postal>
+
+        <email>sprevidi@cisco.com</email>
+      </address>
+    </author>
+
     <author fullname="Bruno Decraene" initials="B." surname="Decraene">
       <organization>Orange</organization>
 
       <address>
         <postal>
-          <street></street>
+          <street/>
 
-          <city></city>
+          <city/>
 
-          <code></code>
+          <code/>
 
           <country>FR</country>
         </postal>
@@ -98,11 +118,11 @@
 
       <address>
         <postal>
-          <street></street>
+          <street/>
 
-          <city></city>
+          <city/>
 
-          <code></code>
+          <code/>
 
           <country>FR</country>
         </postal>
@@ -116,11 +136,11 @@
 
       <address>
         <postal>
-          <street></street>
+          <street/>
 
-          <city></city>
+          <city/>
 
-          <code></code>
+          <code/>
 
           <country>DE</country>
         </postal>
@@ -138,7 +158,7 @@
 
           <city>Belgrade</city>
 
-          <code></code>
+          <code/>
 
           <country>RS</country>
         </postal>
@@ -152,11 +172,11 @@
 
       <address>
         <postal>
-          <street></street>
+          <street/>
 
           <city>London</city>
 
-          <code></code>
+          <code/>
 
           <country>UK</country>
         </postal>
@@ -221,7 +241,7 @@
       </address>
     </author>
 
-    <date day="26" month="June" year="2013" />
+    <date day="11" month="June" year="2013"/>
 
     <workgroup>IS-IS for IP Internets</workgroup>
 
@@ -264,16 +284,43 @@
       introduced for Segment Routing.</t>
 
       <t>Segment Routing architecture is described in <xref
-      target="draft-filsfils-rtgwg-segment-routing-00"></xref>.</t>
+      target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
 
       <t>Segment Routing use cases are described in <xref
-      target="draft-filsfils-rtgwg-segment-routing-use-cases-00"></xref>.</t>
+      target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
     </section>
 
     <section title="Segment Routing Identifiers">
-      <t>Segment Routing architecture defines different types of Segment
-      Identifiers (SID). This document defines the IS-IS encodings for the
-      IGP-Prefix-SID and IGP-Adjacency-SID.</t>
+      <t>Segment Routing architecture (<xref
+      target="draft-filsfils-rtgwg-segment-routing-00"/>) defines different
+      types of Segment Identifiers (SID). This document defines the IS-IS
+      encodings for the IGP-Prefix-SID, IGP-Adjacency-SID and
+      LAN-Adjacency-SID.</t>
+
+      <section anchor="SIDLABEL" title="SID/Label Sub-TLV">
+        <t>The SID Sub-TLV is present in multiple Sub-TLVs defined in this
+        document and contains a SID or Label. The SID Sub-TLV has the
+        following format: <figure>
+            <artwork>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   Type        |     Length    |  
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                          SID/Label (variable)                 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+where:</artwork>
+          </figure><list>
+            <t>Type: TBA</t>
+
+            <t>Length: variable (3 or 4)</t>
+
+            <t>SID/Label: if length is set to 3 then the 20 rightmost bits
+            represent a label. If length is 4 then the value represents a 32
+            bits SID.</t>
+          </list></t>
+      </section>
 
       <section anchor="PREFIXSIDSUBTLV"
                title="Prefix Segment Identifier (Prefix-SID Sub-TLV)">
@@ -281,20 +328,19 @@
         Sub-TLV (Prefix-SID Sub-TLV).</t>
 
         <t>The Prefix-SID Sub-TLV carries the Segment Routing IGP-Prefix-SID
+        as defined in <xref target="draft-filsfils-rtgwg-segment-routing-00"/>
         and has flags and fields that may be used, in future extensions of
         Segment Routing, for carrying other types of SIDs.</t>
 
         <t>A Prefix-SID Sub-TLV is associated to a prefix advertised by a node
         and MAY be present in any of the following TLVs: <list style="hanging">
-            <t>TLV-135 (IPv4) defined in <xref target="RFC5305"></xref>.</t>
+            <t>TLV-135 (IPv4) defined in <xref target="RFC5305"/>.</t>
 
-            <t>TLV-235 (MT-ipv4) defined in <xref
-            target="RFC5120"></xref>.</t>
+            <t>TLV-235 (MT-ipv4) defined in <xref target="RFC5120"/>.</t>
 
-            <t>TLV-236 (IPv6) defined in <xref target="RFC5308"></xref>.</t>
+            <t>TLV-236 (IPv6) defined in <xref target="RFC5308"/>.</t>
 
-            <t>TLV-237 (MT-IPv6) defined in <xref
-            target="RFC5120"></xref>.</t>
+            <t>TLV-237 (MT-IPv6) defined in <xref target="RFC5120"/>.</t>
           </list></t>
 
         <t>The Prefix-SID Sub-TLV MUST follow the TLV (e.g.: TLV-135) it is
@@ -305,24 +351,24 @@
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Type        |     Length    |            Flags              |
+|   Type        |     Length    |     Flags     |   Algorithm   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|              Prefix Segment Identifier (SID)                  |
+|                        SID/Index                              |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 where:</artwork>
           </figure><list style="hanging">
             <t>Type: TBA</t>
 
-            <t>Length: multiple of 6 octets.</t>
+            <t>Length: variable.</t>
 
-            <t>Flags: 2 octets field of following flags:<figure>
+            <t>Flags: 1 octet field of following flags:<figure>
                 <artwork>
-       0                   1
-       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |R|N|P|G|                       | 
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+       0                
+       0 1 2 3 4 5 6 7 
+      +-+-+-+-+-+-+-+-+
+      |R|N|P          | 
+      +-+-+-+-+-+-+-+-+
 
       where: </artwork>
               </figure><list style="hanging">
@@ -337,35 +383,39 @@ where:</artwork>
                 Typically, the N-Flag is set on Prefix-SIDs attached to a
                 router loopback address. The N-Flag is set when the Prefix-SID
                 is a Node-SID as described in <xref
-                target="draft-filsfils-rtgwg-segment-routing-00"></xref>.</t>
+                target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
 
                 <t>P-Flag: no-PHP flag. If set, then the penultimate hop MUST
                 NOT pop the Prefix-SID before delivering the packet to the
                 node that advertised the Prefix-SID.</t>
 
-                <t>G-Flag: Global flag. When set, the SID value has global
-                significance which means the SID has been allocated from the
-                Global Segment Routing Block (SRGB) as described in <xref
-                target="draft-filsfils-rtgwg-segment-routing-00"></xref>. When
-                unset, the SID value has local (within the router)
-                significance which means the SID has NOT been allocated from
-                the SRGB. When the IS-IS Prefix-SID Sub-TLV carries an IGP
-                Prefix SID, then the G-flag MUST be set.</t>
-
                 <t>Other bits: MUST be zero when originated and ignored when
                 received.</t>
               </list></t>
 
-            <t>Prefix Segment Identifier (SID): 32 bits of Prefix-SID.</t>
+            <t>Algorithm: one octet identifiying the algorithm to which the
+            Prefix-SID is associated. The following value has been defined:
+            <list style="hanging">
+                <t>0: Shortest Path First (SPF) algorithm based on link
+                metric.</t>
+
+                <t>Definitions and use of algorithms in Segment Routing are
+                described in <xref
+                target="draft-filsfils-rtgwg-segment-routing-00"/></t>
+              </list></t>
+
+            <t>SID/Index: 32 bit index defining the offset in the SID/Label
+            space advertised by this router using the encodings defined in
+            <xref target="SRCAP"/>.</t>
           </list></t>
 
-        <t>Multiple Prefix-SIDs MAY appear on the same prefix in which case
-        each SID is encoded as a tuple &lt;flags, Prefix-SID&gt;. When
-        multiple Prefix-SIDs are present, the receiving router MUST use the
+        <t>Multiple Prefix-SIDs Sub-TLVs MAY appear on the same prefix in
+        which case each SID is encoded as a separate Sub-TLV. When multiple
+        Prefix-SID Sub-TLVs are present, the receiving router MUST use the
         first encoded SID and MAY use the subsequent ones.</t>
 
         <t>The No-PHP flag MUST be set on the Prefix-SIDs associated with
-        Reachability advertisements which were originated by other routers and
+        reachability advertisements which were originated by other routers and
         leaked (either from Level-1 to Level-2 or vice versa).</t>
 
         <t>The R-Flag MUST be set for prefixes that are not local to the
@@ -401,7 +451,7 @@ where:</artwork>
 
         <t>The router behavior determined by the P, R and N flags are
         described in <xref
-        target="draft-filsfils-rtgwg-segment-routing-00"></xref>.</t>
+        target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
       </section>
 
       <section title="Adjacency Segment Identifier (Adj-SID)">
@@ -409,24 +459,25 @@ where:</artwork>
         Sub-TLV (Adj-SID Sub-TLV).</t>
 
         <t>The Adj-SID Sub-TLV is an optional Sub-TLV carrying the Segment
-        Routing IGP-Adjacency-SID with flags and fields that may be used, in
-        future extensions of Segment Routing, for carrying other types of
-        SIDs.</t>
+        Routing IGP-Adjacency-SID as defined in <xref
+        target="draft-filsfils-rtgwg-segment-routing-00"/> with flags and
+        fields that may be used, in future extensions of Segment Routing, for
+        carrying other types of SIDs.</t>
 
         <t>IS-IS adjacencies are advertised using one of the IS-Neighbor TLVs
         below:<list style="hanging">
-            <t>TLV-22 <xref target="RFC5305"></xref></t>
+            <t>TLV-22 <xref target="RFC5305"/></t>
 
-            <t>TLV-222 <xref target="RFC5120"></xref></t>
+            <t>TLV-222 <xref target="RFC5120"/></t>
 
-            <t>TLV-23 <xref target="RFC5311"></xref></t>
+            <t>TLV-23 <xref target="RFC5311"/></t>
 
-            <t>TLV-223 <xref target="RFC5311"></xref></t>
+            <t>TLV-223 <xref target="RFC5311"/></t>
 
-            <t>TLV-141 <xref target="RFC5316"></xref></t>
+            <t>TLV-141 <xref target="RFC5316"/></t>
           </list></t>
 
-        <t>Currently, <xref target="RFC5316"></xref> defines TLV-141 with the
+        <t>Currently, <xref target="RFC5316"/> defines TLV-141 with the
         purpose of inter-AS connectivity. In the Segment Routing context, we
         relax the constraint and we allow TLV-141 to be used for advertising
         any link that is external to the IS-IS domain no matter if it connects
@@ -435,18 +486,7 @@ where:</artwork>
         <t>Multiple Adj-SID Sub-TLVs MAY be associated with a single
         IS-neighbor. Examples where more than one Adj-SID may be used per
         IS-neighbor are described in <xref
-        target="draft-filsfils-rtgwg-segment-routing-use-cases-00"></xref>.</t>
-
-        <section title="Adj-SID and Forwarding Adjacencies">
-          <t>Forwarding Adjacencies are defined in <xref
-          target="RFC4206"></xref> and allow a router to advertise an MPLS
-          RSVP-TE LSP as if it was a regular IS-IS adjacency.</t>
-
-          <t>Segment Routing supports FAs and Adj-SIDs can be assigned to FA
-          advertisements. A new sub-TLV (defined below) is introduced in order
-          to give the optional ability to advertise the explicit path
-          represented by a FA.</t>
-        </section>
+        target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
 
         <section anchor="ADJSIDSUBTLV"
                  title="Adjacency Segment Identifier (Adj-SID) Sub-TLV">
@@ -455,11 +495,9 @@ where:</artwork>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Type        |     Length    |             Flags             |
+|   Type        |     Length    |     Flags     |     Weight    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                             Adj-SID                           |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                     ERO (optional and variable)               |
+|               SID/Label Sub-TLV (variable)                    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 where:</artwork>
@@ -468,110 +506,46 @@ where:</artwork>
 
               <t>Length: variable.</t>
 
-              <t>Flags: 2 octets field of following flags:<figure>
+              <t>Flags: 1 octet field of following flags:<figure>
                   <artwork> 
-      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |F|I|V|E|G|T|                   | 
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      0 1 2 3 4 5 6 7 
+      +-+-+-+-+-+-+-+
+      |F|B|         | 
+      +-+-+-+-+-+-+-+
 
       where:</artwork>
                 </figure><list style="hanging">
-                  <t>F-Flag: FA flag. If set, then Adj-SID refers to a
-                  Forwarding Adjacency.</t>
+                  <t>F-Flag: Address-Family flag. If unset, then the Adj-SID
+                  refers to an adjacency with outgoing IPv4 encapsulation. If
+                  set then the Adj-SID refers to an adjacency with outgoing
+                  IPv6 encapsulation.</t>
 
-                  <t>I-Flag: IPv4 flag. If set, then the Adj-SID refers to an
-                  adjacency with outgoing IPv4 encapsulation.</t>
-
-                  <t>V-Flag: IPv6 flag. If set, then the Adj-SID refers to an
-                  adjacency with outgoing IPv6 encapsulation.</t>
-
-                  <t>E-Flag: ERO presence flag. If set, it indicates presence
-                  of the ERO object.</t>
-
-                  <t>G-Flag: Global flag. When set, the SID value has global
-                  significance which means the SID has been allocated from the
-                  Segment Routing Global Block (SRGB) as described in <xref
-                  target="draft-filsfils-rtgwg-segment-routing-00"></xref>.
-                  When unset, the SID value has local (within the router)
-                  significance which means the SID has NOT been allocated from
-                  the SRGB. When the IS-IS Adj-SID Sub-TLV carries the IGP
-                  Adjacency SID, then the G-Flag MUST be unset.</t>
-
-                  <t>T-Flag: Protected-flag. If set, the Adj-SID refers to an
+                  <t>B-Flag: Backup flag. If set, the Adj-SID refers to an
                   adjacency being protected (e.g.: using IPFRR or MPLS-FRR) as
                   described in <xref
-                  target="draft-filsfils-rtgwg-segment-routing-use-cases-00"></xref>.</t>
+                  target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
 
                   <t>Other bits: MUST be zero when originated and ignored when
                   received.</t>
                 </list></t>
 
-              <t>Adj-SID: 32 bits of Adjacency Segment Identifier
-              (Adj-SID).</t>
+              <t>Weight: 1 octet. The value represents the weight of the
+              Adj-SID for the prupose of load balancing. The use of the weight
+              is defined in <xref
+              target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
 
-              <t>An SR capable router SHOULD allocate an Adj-SID for each of
-              its adjacencies and set the T-Flag when the adjacency is
+              <t>SID/Label Sub-TLV: contains the SID/Label value as defined in
+              <xref target="SIDLABEL"/>.</t>
+
+              <t>An SR capable router MAY allocate an Adj-SID for each of its
+              adjacencies and SHOULD set the B-Flag when the adjacency is
               protected by a FRR mechanism (IP or MPLS) as described in <xref
-              target="draft-filsfils-rtgwg-segment-routing-use-cases-00"></xref>.</t>
+              target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
 
-              <t>The "I" and "V" flags are used in order for the router to
-              advertise the outgoing encapsulation of the adjacency the
-              Adj-SID is attached to. Use cases of the use of "I" and "V"
-              flags are described in <xref
-              target="draft-filsfils-rtgwg-segment-routing-use-cases-00"></xref>.</t>
-
-              <t>At least one among the "I" and "V" flags MUST be set. Both
-              are set when the adjacency is both IPv4 and IPv6 capable (i.e.:
-              the router has to inspect the first 4 bits of the IP packet
-              (IPv4 or IPv6) in order to determine the outgoing
-              encapsulation).</t>
-            </list>If the E-flag is set, then the explicit path taken by the
-          Forwarding Adjacency MUST be encoded using the following format:
-          <figure>
-              <artwork>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
-|     Length    |     Flags     |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                      Explicit Route Hop  #1                   |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                      Explicit Route Hop  #...                 |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                             ....                              |
-   
-where:</artwork>
-            </figure><list>
-              <t>Length: 1 octet of length of the ERO object.</t>
-
-              <t>Flags: 1 octet flag field where following flags are
-              defined:<figure>
-                  <artwork>
-       0 1 2 3 4 5 6 7 
-      +-+-+-+-+-+-+-+-+
-      |I|V|R|         | 
-      +-+-+-+-+-+-+-+-+
-
-      where:</artwork>
-                </figure><list style="hanging">
-                  <t>I-Flag is the IPv4 flag. When set the content of the
-                  Explicit Route Object contains IPv4 addresses.</t>
-
-                  <t>V-Flag is the IPv6 flag. When set the content of the
-                  Explicit Route Object contains IPv6 addresses.</t>
-
-                  <t>R-Flag is the Segment Routing flag. When set the content
-                  of the Explicit Route Object contains SIDs.</t>
-                </list></t>
-
-              <t>Explicit Route Hop: addresses of the explicit route. IPv4 and
-              SR hops are encoded using a 32 bit value while IPv6 hops are
-              encoded as 128 bit values.</t>
-
-              <t>Among the the "I", "V" and "R" flags, one MUST be set. If
-              none or more than one are set , the receiving router MUST ignore
-              the ERO object and SHOULD log an error.</t>
+              <t>The F-flag is used in order for the router to advertise the
+              outgoing encapsulation of the adjacency the Adj-SID is attached
+              to. Use cases of the use of the F-flag are described in <xref
+              target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
             </list></t>
         </section>
 
@@ -580,7 +554,7 @@ where:</artwork>
           elected and originates the Pseudonode-LSP (PN-LSP) including all
           neighbors of the DIS.</t>
 
-          <t>When Segment Routing is used, each router in the LAN MUST
+          <t>When Segment Routing is used, each router in the LAN MAY
           advertise the Adj-SID of each of its neighbors. Since, on LANs, each
           router only advertises one adjacency to the DIS (and doesn't
           advertise any other adjacency), each router advertises the set of
@@ -588,55 +562,73 @@ where:</artwork>
           part of the TLV advertising the adjacency to the DIS (e.g.:
           TLV-22).</t>
 
-          <t>Inside the Adj-SID Sub-TLV described in <xref
-          target="ADJSIDSUBTLV"></xref> the following new Sub-TLV is defined:
-          LAN-Adj-SID which contains the set of Adj-SIDs the router assigned
-          to each of its LAN neighbors. The format of the LAN-Adj-SID Sub-TLV
-          is as follows:<figure>
+          <t>The following new Sub-TLV is defined: LAN-Adj-SID containing the
+          set of Adj-SIDs the router assigned to each of its LAN
+          neighbors.</t>
+
+          <t>The format of the LAN-Adj-SID Sub-TLV is as follows:<figure>
               <artwork>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
-|   Type        |     Length    |      Flags    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                     Adj-SID    #1 (4 octets)                  |
+|   Type        |     Length    |      Flags    |    Weight     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                     System-ID  #1 (6 octets)                  |
-+                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                               |    
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               
-|                             ....
 
-|                             ....                              |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                     Adj-SID    #n (4 octets)                  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                     System-ID  #n                             |
+|                     System-ID (6 octets)                      |
 +                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                               | 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                   SID/Label Sub-TLV (variable)                |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 where: </artwork>
             </figure><list style="hanging">
               <t>Type: TBA.</t>
 
-              <t>Length: is 1 + multiple of 10 octets.</t>
+              <t>Length: variable.</t>
 
-              <t>Flags: 1 octet field of flags. None are defined at this
-              stage. MUST be zero when originated and ignored when
-              received.</t>
+              <t>Flags: 1 octet field of following flags:<figure>
+                  <artwork> 
+      0 1 2 3 4 5 6 7 
+      +-+-+-+-+-+-+-+
+      |F|B|         | 
+      +-+-+-+-+-+-+-+
 
-              <t>Adj-SID: 32 bits of SID.</t>
+      where:</artwork>
+                </figure><list style="hanging">
+                  <t>F-Flag: Family flag. If unset, then the Adj-SID refers to
+                  an adjacency with outgoing IPv4 encapsulation. If set then
+                  the Adj-SID refers to an adjacency with outgoing IPv6
+                  encapsulation.</t>
 
-              <t>System-ID: IS-IS System-ID of length "ID Length" as defined
-              in <xref target="ISO10589"></xref>.</t>
+                  <t>B-Flag: Backup flag. If set, the LAN-Adj-SID refers to an
+                  adjacency being protected (e.g.: using IPFRR or MPLS-FRR) as
+                  described in <xref
+                  target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
+
+                  <t>Other bits: MUST be zero when originated and ignored when
+                  received.</t>
+                </list></t>
+
+              <t>Weight: 1 octet. The value represents the weight of the
+              Adj-SID for the prupose of load balancing. The use of the weight
+              is defined in <xref
+              target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
+
+              <t>System-ID: 6 octets of IS-IS System-ID of length "ID Length"
+              as defined in <xref target="ISO10589"/>.</t>
+
+              <t>SID/Label Sub-TLV: contains the SID/Label value as defined in
+              <xref target="SIDLABEL"/>.</t>
             </list></t>
 
-          <t>Multiple tuples &lt;Adj-SID, System-ID&gt; SHOULD be encoded in
-          one Sub-TLV.</t>
+          <t>Multiple LAN-Adj-SID Sub-TLVs MAY be encoded.</t>
 
           <t>In case one TLV-22/23/222/223 (reporting the adjacency to the
-          DIS) can't contain the whole set of Adj-SID Sub-TLVs, multiple
+          DIS) can't contain the whole set of LAN-Adj-SID Sub-TLVs, multiple
           advertisements of the adjacency to the DIS MUST be used, MUST have
           the same metric and SHOULD be inserted within the same LSP
           fragment.</t>
@@ -652,21 +644,17 @@ where: </artwork>
     <section title="Segment Routing Capabilities">
       <t>Segment Routing requires each router to advertise its capabilities to
       the rest of the routing domain. IS-IS Router Capability TLV-242 is
-      defined in <xref target="RFC4971"></xref> and describes the router
+      defined in <xref target="RFC4971"/> and describes the router
       capabilities. For the purposes of Segment Routing we define following
-      additional Sub-TLVs: <list style="hanging">
+      additional Sub-TLV: <list style="hanging">
           <t>Segment Routing Capability Sub-TLV (SR-Cap)</t>
-
-          <t>Segment Routing Mapping Server Sub-TLV (SRMS)</t>
-
-          <t>Segment Routing Mirroring Context SID Sub-TLV (SRMC)</t>
         </list></t>
 
       <t>The Router Capability TLV specifies flags that control its
-      advertisement. The SR-Cap, SRMS and SRMC Sub-TLVs MUST be propagated
-      throughout the entire routing domain and therefore the Router Capability
-      TLV distribution flags MUST be set accordingly, i.e.: the S flag must be
-      set and the D flag MUST be set when the Capability TLV is leaked into
+      advertisement. The SR-Cap Sub-TLV MUST be propagated throughout the
+      entire routing domain and therefore the Router Capability TLV
+      distribution flags MUST be set accordingly, i.e.: the S flag must be set
+      and the D flag MUST be set when the Capability TLV is leaked into
       level-1.</t>
 
       <section anchor="SRCAP"
@@ -679,331 +667,41 @@ where: </artwork>
             <artwork>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   Type        |     Length    |  Flags        |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Type        |     Length    |           Flags               |
+|                        First SID/Label Value                  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                        First SID Value                        |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                        Last SID Value                         |
+|                        Last SID/Label Value                   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 where: </artwork>
           </figure><list style="hanging">
             <t>Type: TBA.</t>
 
-            <t>Length: 2 octets + 8 octets if SID Values are advertised.</t>
+            <t>Length: 1 octet + 8 octets if SID Values are advertised.</t>
 
             <t>Flags: 2 octets field of following flags:<figure>
                 <artwork>
-        0                   1
-        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |X|M|I|V|                       | 
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        0              
+        0 1 2 3 4 5 6 7 
+       +-+-+-+-+-+-+-+-+
+       |S|             | 
+       +-+-+-+-+-+-+-+-+
 
        where:</artwork>
               </figure><list style="hanging">
-                <t>X-Flag: Index flag. If set, then each SID with the G-Flag
-                set that is advertised by this router represents an index in
-                the SID space also advertised by this router (using the
-                encodings defined below). Indexed SID values are described in
-                <xref
-                target="draft-filsfils-rtgwg-segment-routing-00"></xref>. If
-                the X-Flag is not set, then SID values 0-63 are reserved and
-                MUST NOT be used by the SR control plane for either node or
-                adjacency segments. Any SID which is received with a value
-                0-63 and the X-Flag unset MUST be ignored and the router
-                SHOULD log an error.</t>
-
-                <t>M-Flag: SID space flag. If set, the router advertises SID
+                <t>S-Flag: SID space flag. If set, the router advertises SID
                 space.</t>
 
-                <t>I-Flag: IPv4 flag. If set, then the router is capable of
-                outgoing IPv4 encapsulation on all interfaces.</t>
-
-                <t>V-Flag: IPv6 flag. If set, then the router is capable of
-                outgoing IPv6 encapsulation on all interfaces.</t>
-
                 <t>Other bits: MUST be zero when originated and ignored when
                 received.</t>
               </list></t>
 
-            <t>First SID Value and Last SID Value represent the local SID
-            range of the router. The semantic and procedures of these values
-            are described in <xref
-            target="draft-filsfils-rtgwg-segment-routing-use-cases-00"></xref>.</t>
-          </list></t>
-
-        <t>I-Flag and V-Flag define the outgoing encapsulations the router is
-        capable of on all its interfaces.</t>
-      </section>
-
-      <section title="Segment Routing Mapping Server">
-        <t>One or more SR capable routers may act as a Segment Routing Mapping
-        Server (SRMS).</t>
-
-        <t>One example (but not limited to) of SR Mapping Server use is when
-        some of the routers in the network do not support Segment Routing and
-        therefore they won't advertise any Prefix-SID. In such case the SRMS
-        advertises the mappings on behalf of the non-SR capable routers.</t>
-
-        <t>The details on the Segment Routing Mapping Server capability are
-        described in <xref
-        target="draft-filsfils-rtgwg-segment-routing-use-cases-00"></xref>.</t>
-
-        <section title="SR Mapping Server Sub-TLV ">
-          <t>The SR Mapping Server Sub-TLV (SRMS Sub-TLV) is used in order to
-          advertise Prefix-SID mappings on behalf of routers. The SRMS Sub-TLV
-          is optional and MAY appear more than once in the Router Capability
-          TLV.</t>
-
-          <t>The SRMS Sub-TLV has the following format: <figure>
-              <artwork>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Type        |     Length    |             Flags             |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                              ...                              |
-
-where:</artwork>
-            </figure><list>
-              <t>Type: TBD.</t>
-
-              <t>Length: variable.</t>
-
-              <t>Flags. Following flags are defined:<figure>
-                  <artwork>
- 0                   1
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|I|V|R|                         | 
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-where:</artwork>
-                </figure><list style="hanging">
-                  <t>I-flag: IPv4 flag. If set then the carried mappings refer
-                  to an IPv4 prefix.</t>
-
-                  <t>V-flag: IPv6 flag. If set then the carried mappings refer
-                  to an IPv6 prefix.</t>
-
-                  <t>R-Flag: Range flag. When set, the mappings are expressed
-                  using range values.</t>
-                </list></t>
-            </list></t>
-
-          <t>The combination of the I, V flags with the R flag tells the
-          Address Family and type of encodings. When the R-flag is not set,
-          the following encoding format is used:<figure>
-              <artwork>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Type        |     Length    |             Flags             |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                   Masklength and Prefix #1 (variable length)  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                     Prefix-SID  #1   (4 octet length)         |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                              ...                              |
-
-|                              ...                              |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                   Masklength and Prefix #n (variable length)  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                     Prefix-SID  #n   (4 octet length)         |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-where:</artwork>
-            </figure><list style="hanging">
-              <t>Masklength and Prefix: the prefix to be mapped into a
-              Prefix-SID consisting of 1 octet of prefix length followed by 0
-              to 16 octets of IPv4 or IPv6 prefix (determined by the I and V
-              flags).</t>
-
-              <t>Prefix-SID: 4 octet Prefix Segment Identifier mapped to the
-              prefix.</t>
-            </list></t>
-
-          <t>The 8 bits of prefix length can have the values 0-128 and
-          indicate the number of significant bits in the prefix. The prefix is
-          encoded in the minimal number of octets for the given number of
-          significant bits as follows: <list style="hanging">
-              <t>Prefix octets = integer of ((prefix length + 7) / 8)</t>
-            </list></t>
-
-          <t>The range option (the R bit) provides the ability to specify a
-          range of addresses and the associated Prefix-SIDs. In fact, then the
-          R bit allows to specify the first address, the number of addresses
-          that need to be mapped into a Prefix-SID and the starting value of
-          the Prefix-SID range.</t>
-
-          <t>Therefore, with the R bit set, the following encoding is
-          used:<figure align="center">
-              <artwork>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Type        |     Length    |             Flags             |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|        First Masklength and Prefix #1 (variable length)       |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|        First Prefix-SID #1 (4 octets)                         |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|        Range Size #1          |  
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                              ...                              |
-                               ...
-|                                                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|        First Masklength and Prefix #n (variable length)       |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|        First Prefix-SID #n (4 octets)                         |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|        Range Size #n          |  
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</artwork>
-            </figure></t>
-
-          <t>"First Masklength and Prefix #i" is treated as unsigned integer
-          of size "Masklength" and consisting of the most significant
-          "Masklength" bits. Let the value P be equal to "Prefix". The mapping
-          can be characterized as follows:<figure>
-              <artwork>
-P/Masklength     maps to "First Prefix-SID #i"
-(P+1)/Masklength maps to "First Prefix-SID #i" + 1
-(P+2)/Masklength maps to "First Prefix-SID #i" + 2
-...
-(P + "Range Size #i" - 1)/Masklength maps to 
-      ("First Prefix-SID #i" + "Range Size #i" -1)</artwork>
-            </figure></t>
-
-          <t>Example 1: if the following router addresses (loopback addresses)
-          need to be mapped into the corresponding Prefix-SIDs: <figure
-              suppress-title="true">
-              <artwork>
-Router-A: 192.0.2.1/32, Prefix-SID: 1001
-Router-B: 192.0.2.2/32, Prefix-SID: 1002
-Router-C: 192.0.2.3/32, Prefix-SID: 1003
-Router-D: 192.0.2.4/32, Prefix-SID: 1004</artwork>
-            </figure><figure suppress-title="true">
-              <artwork>
-The R-bit allows the following encoding: 
-
-First Masklength and Prefix: 
-     1 octet of length with value: 32
-     4 octets of prefix with value: 192.0.2.1
-
-First Prefix-SID:
-     4 octets of Prefix-SID with value: 1001
-
-Range Size: 
-     2 octets with value: 4</artwork>
-            </figure></t>
-
-          <t>Example-2: If the following prefixes need to be mapped into the
-          corresponding Prefix-SIDs: <figure suppress-title="true">
-              <artwork>
-10.1.1/24, Prefix-SID: 2001
-10.1.2/24, Prefix-SID: 2002
-10.1.3/24, Prefix-SID: 2003
-10.1.4/24, Prefix-SID: 2004
-10.1.5/24, Prefix-SID: 2005
-10.1.6/24, Prefix-SID: 2006
-10.1.7/24, Prefix-SID: 2007</artwork>
-            </figure><figure suppress-title="true">
-              <artwork>
-The R-bit allows the following encoding: 
-
-First Masklength and Prefix: 
-     1 octet of length with value: 24
-     4 octets of prefix with value: 10.1.1.0
-
-First Prefix-SID:
-     4 octets of Prefix-SID with value: 2001
-
-Range Size: 
-     2 octets with value: 7</artwork>
-            </figure></t>
-
-          <t>In case a router receives Mapping Server SubTLVs (from the same
-          router or from different routers) with inconsistencies (e.g.: the
-          same prefix is advertised twice with different SIDs or a range
-          overlaps with another one) the router MUST use, for any given
-          SID/Prefix mapping, the last received mapping.</t>
-
-          <t>A router receiving a SRMS SubTLV MUST validate the received
-          mappings against the content of its routing table. Only the mapping
-          corresponding to existing RIB prefixes MUST be considered. All other
-          mappings MUST NOT be used until the prefix they refer to appears in
-          the RIB.</t>
-        </section>
-      </section>
-
-      <section anchor="MCS"
-               title="Segment Routing Mirroring Context Sub-TLV (SRMC)">
-        <t>The SRMC Sub-TLV allows a node (called the mirroring node) to
-        advertise its capability to mirror another node (called the mirrored
-        node). The mirroring node is identified by its IPv4/IPv6 address or
-        its related Prefix-SID. The mirroring node advertises in the SRMC
-        Sub-TLV the context segment that needs to be used in order to invoke
-        its mirroring service for the mirrored node.</t>
-
-        <t>Examples of mirroring services use cases are defined in
-        [draft-filsfils-segment-routing-use-cases] and <xref
-        target="I-D.minto-rsvp-lsp-egress-fast-protection"></xref>.</t>
-
-        <t>The SRMC Sub-TLV is optional and MAY be present in the Router
-        Capability TLV (TLV-242), MAY appear more than once and has following
-        format:<figure>
-            <artwork>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Type        |     Length    |          SRMC Flags           |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                      Mirrored Address  (variable)             |
-
-|                                                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                      Context-SID (4 octets)                   |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-where: </artwork>
-          </figure><list style="hanging">
-            <t>Type: TBA.</t>
-
-            <t>Length: variable.</t>
-
-            <t>SRMC Flags: 2 octets field of flags. Following flags are
-            defined: <figure>
-                <artwork> 
-        0                   1
-        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |I|V|R|                         | 
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-       where:</artwork>
-              </figure><list style="hanging">
-                <t>I-flag: IPv4 flag. If set, the Mirrored Address is an IPv4
-                address.</t>
-
-                <t>V-flag: IPv6 flag. If set, the Mirrored Address is an IPv6
-                address.</t>
-
-                <t>R-flag: Segment Routing Identifier. If set, the Mirrored
-                Address is a SID.</t>
-
-                <t>Other bits: MUST be zero when originated and ignored when
-                received.</t>
-              </list></t>
-
-            <t>Mirrored Address: the IPv4 or IPv6 or SID value representing
-            the mirrored element.</t>
-
-            <t>Context-SID: 32 bit value of Segment Identifier for the
-            Mirroring Service.</t>
+            <t>First SID/Label Value and Last SID/Label Value represent the
+            local SID or Label range of the router. The semantic and
+            procedures of these values are described in <xref
+            target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
           </list></t>
       </section>
     </section>
@@ -1022,8 +720,8 @@ where: </artwork>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>We would like to thank Les Ginsberg, Dave Ward, Dan Frost, Stewart
-      Bryant, Hannes Gredler, Pierre Francois and Martin Horneffer for their
-      contribution to the content of this document.</t>
+      Bryant, Pierre Francois and Martin Horneffer for their contribution to
+      the content of this document.</t>
     </section>
   </middle>
 
@@ -1043,10 +741,10 @@ where: </artwork>
             Standardization</organization>
           </author>
 
-          <date month="Nov" year="2002" />
+          <date month="Nov" year="2002"/>
         </front>
 
-        <seriesInfo name="ISO/IEC" value="10589:2002, Second Edition" />
+        <seriesInfo name="ISO/IEC" value="10589:2002, Second Edition"/>
       </reference>
 
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5305.xml"?>
@@ -1071,12 +769,12 @@ where: </artwork>
         <front>
           <title>Segment Routing</title>
 
-          <author fullname="Stefano Previdi" initials="S." surname="Previdi"></author>
+          <author fullname="Stefano Previdi" initials="S." surname="Previdi"/>
 
           <author fullname="Clarence Filsfils" initials="C."
-                  surname="Filsfils"></author>
+                  surname="Filsfils"/>
 
-          <date day="20" month="May" year="2013" />
+          <date day="20" month="May" year="2013"/>
         </front>
       </reference>
 
@@ -1085,9 +783,9 @@ where: </artwork>
           <title>Segment Routing Use Cases</title>
 
           <author fullname="Clarence Filsfils" initials="C."
-                  surname="Filsfils"></author>
+                  surname="Filsfils"/>
 
-          <date day="20" month="May" year="2013" />
+          <date day="20" month="May" year="2013"/>
         </front>
       </reference>
 
