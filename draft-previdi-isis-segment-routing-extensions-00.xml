@@ -492,13 +492,9 @@ where:</artwork>
         <t>IS-IS adjacencies are advertised using one of the IS-Neighbor TLVs
         below:<list style="hanging">
             <t>TLV-22 <xref target="RFC5305"/></t>
-
             <t>TLV-222 <xref target="RFC5120"/></t>
-
             <t>TLV-23 <xref target="RFC5311"/></t>
-
             <t>TLV-223 <xref target="RFC5311"/></t>
-
             <t>TLV-141 <xref target="RFC5316"/></t>
           </list></t>
 
@@ -544,6 +540,10 @@ where:</artwork>
                   described in <xref
                   target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
 
+<!-- HG: can we say that it MAY be optional to encode the actual Backup path using a Binding TLV ?
+     The Binding TLV would have the same SID/Label value than the Adj-SID and it MUST only
+     contain a Backup-ERO list (no Primary ERO).
+-->
                   <t>Other bits: MUST be zero when originated and ignored when
                   received.</t>
                 </list></t>
