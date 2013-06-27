@@ -677,17 +677,20 @@ where: </artwork>
         label switched path, can be described. Furthermore also SID/Label
         Bindings from external protocols can get easily re-advertised.</t>
 
- 
-<!-- HG: FIXME -->
-        <t>Due to the limited size of subTLV space (See <xref
-        target="RFC5311"/> section 4.5 for details), The SID/Label binding TLV
-        has cumulative rather than canceling semantics. If a router originates
-        more than one SID/Label Binding Label TLV with the same FEC and
-        SID/Label value, then the subTLVs of the second, third, etc. TLV are
-        accumulated. Since some subTLVs represent an ordered set (e.g. ERO
-        subTLVs) allocation and ordering of TLV space inside particular IS-IS
-        LSP fragment is significant and needs to be tracked.</t>
-<!-- HG: FIXME -->
+
+	<t>The SID/Label Binding TLV may be used for advertising
+	SID/Label Bindings and their associated Primary and Backup paths.
+	In one single TLV either a primary ERO Path, a backup ERO Path or both
+	are advertised. If a router wants to advertise multiple parallel paths
+	then it can generate several TLVs for the same Prefix/FEC.
+	Each occurence of a Binding TLV with respect with a given FEC Prefix
+	has accumulating and not canceling semantics.
+	Due the space constraints in the 8-Bit IS-IS TLVs an originating
+	router MAY encode a primary ERO path in one SID/Label Binding TLV and the
+	backup ERO path in a second SID/Label Binding TLV.
+	Note that the FEC Prefix and SID/Label Sub-TLV MUST be identical
+	in both TLVs.
+	</t>
 
         <t>The SID/Label Binding TLV has type TBA and has the following
         format:</t>
