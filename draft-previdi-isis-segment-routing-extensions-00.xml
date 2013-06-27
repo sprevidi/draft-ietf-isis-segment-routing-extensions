@@ -363,7 +363,7 @@ where:</artwork>
         <t>A Prefix-SID Sub-TLV is associated to a prefix advertised by a node
         and MAY be present in any of the following TLVs: <list style="hanging">
             <t>TLV-135 (IPv4) defined in <xref target="RFC5305"/>.</t>
-            <t>TLV-235 (MT-ipv4) defined in <xref target="RFC5120"/>.</t>
+            <t>TLV-235 (MT-IPv4) defined in <xref target="RFC5120"/>.</t>
             <t>TLV-236 (IPv6) defined in <xref target="RFC5308"/>.</t>
             <t>TLV-237 (MT-IPv6) defined in <xref target="RFC5120"/>.</t>
           </list></t>
@@ -714,7 +714,7 @@ where: </artwork>
 
             <t>1 octet of flags</t>
             <t>1 octet of Prefix length</t>
-            <t>FEC Prefix (variable length)</t>
+            <t>0-16 octets of FEC Prefix</t>
             <t>2 octets of Range</t>
             <t>sub-TLVs, where each sub-TLV consists of a sequence of: <list
                 style="symbols">
@@ -777,56 +777,59 @@ where: </artwork>
           the Prefix-SID range.</t>
 
           <t>Example 1: if the following router addresses (loopback addresses)
-          need to be mapped into the corresponding Prefix-SIDs: <figure
-              suppress-title="true">
+          need to be mapped into the corresponding Prefix SID indexes.
+	  <figure suppress-title="true">
               <artwork>
-Router-A: 192.0.2.1/32, Prefix-SID: 1001
-Router-B: 192.0.2.2/32, Prefix-SID: 1002
-Router-C: 192.0.2.3/32, Prefix-SID: 1003
-Router-D: 192.0.2.4/32, Prefix-SID: 1004</artwork>
-            </figure><figure suppress-title="true">
-
-              <artwork>
+Router-A: 192.0.2.1/32, Prefix-SID: Index 1
+Router-B: 192.0.2.2/32, Prefix-SID: Index 2
+Router-C: 192.0.2.3/32, Prefix-SID: Index 3
+Router-D: 192.0.2.4/32, Prefix-SID: Index 4
+	      </artwork>
+	  </figure>
+	  <figure suppress-title="true">
+	    <artwork>
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |      Type     |     Length    |0|0|1| Reserved|     Weight    |
+  |      Type     |     Length    |0|0|1|1|       |     Weight    |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |            Range = 4            |       /32   |      192      |
+  |            Range = 4          |       /32     |      192      |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |       .0      |        .2       |       .1    |  SubTLV Type  |
+  |       .0      |        .2     |       .1      |  SubTLV Type  |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  | SubTLV Length |                                          1001 |
+  | SubTLV Length |                                             1 |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</artwork>
-            </figure></t>
+	    </artwork>
+	  </figure></t>
 
           <t>Example-2: If the following prefixes need to be mapped into the
-          corresponding Prefix-SIDs: <figure suppress-title="true">
-              <artwork>
-10.1.1/24, Prefix-SID: 2001
-10.1.2/24, Prefix-SID: 2002
-10.1.3/24, Prefix-SID: 2003
-10.1.4/24, Prefix-SID: 2004
-10.1.5/24, Prefix-SID: 2005
-10.1.6/24, Prefix-SID: 2006
-10.1.7/24, Prefix-SID: 2007</artwork>
-            </figure><figure suppress-title="true">
-              <artwork>
+          corresponding Prefix-SID indexes:
+	  <figure suppress-title="true">
+	    <artwork>
+10.1.1/24, Prefix-SID: Index 51
+10.1.2/24, Prefix-SID: Index 52
+10.1.3/24, Prefix-SID: Index 53
+10.1.4/24, Prefix-SID: Index 54
+10.1.5/24, Prefix-SID: Index 55
+10.1.6/24, Prefix-SID: Index 56
+10.1.7/24, Prefix-SID: Index 57
+	    </artwork>
+	  </figure>
+	  <figure suppress-title="true">
+	    <artwork>
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |      Type     |     Length    |0|0|1| Reserved|     Weight    |
+  |      Type     |     Length    |0|0|1|1|       |     Weight    |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |            Range = 7            |       /24   |      10       |
+  |            Range = 7          |       /24     |      10       |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |       .1      |        .1       | SubTLV Type | SubTLV Length |
+  |       .1      |        .1     |  SubTLV Type  | SubTLV Length |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                                                          2001 |
+  |                                                            51 |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
               </artwork>
             </figure></t>
-
 
 <!-- HG: FIXME -->
 	    <t>
