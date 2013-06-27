@@ -387,16 +387,18 @@ where:</artwork>
 
             <t>Length: variable.</t>
 
-            <t>Flags: 1 octet field of following flags:<figure>
-                <artwork>
-       0 1 2 3 4 5 6 7 
-      +-+-+-+-+-+-+-+-+
-      |R|N|P|         | 
-      +-+-+-+-+-+-+-+-+
-
-      where: </artwork>
-              </figure><list style="hanging">
-                <t>R-Flag: Re-advertisement flag. If set, then the prefix to
+            <t>Flags: 1 octet field of following flags:
+	    <figure>
+	      <artwork>
+0 1 2 3 4 5 6 7 
++-+-+-+-+-+-+-+-+
+|R|N|P|         | 
++-+-+-+-+-+-+-+-+
+	      </artwork>
+	    </figure>
+	    where:
+	    <list style="hanging">
+	      <t>R-Flag: Re-advertisement flag. If set, then the prefix to
                 which this Prefix-SID is attached, has been propagated by the
                 router either from another level (i.e.: from level-1 to
                 level-2 or the opposite) or from redistribution (e.g.: from
@@ -520,15 +522,17 @@ where:</artwork>
 
               <t>Length: variable.</t>
 
-              <t>Flags: 1 octet field of following flags:<figure>
-                  <artwork> 
+              <t>Flags: 1 octet field of following flags:
+	      <figure>
+		<artwork> 
       0 1 2 3 4 5 6 7 
       +-+-+-+-+-+-+-+
       |F|B|         | 
       +-+-+-+-+-+-+-+
-
-      where:</artwork>
-                </figure><list style="hanging">
+		</artwork>
+	      </figure>
+	      where:
+	      <list style="hanging">
                   <t>F-Flag: Address-Family flag. If unset, then the Adj-SID
                   refers to an adjacency with outgoing IPv4 encapsulation. If
                   set then the Adj-SID refers to an adjacency with outgoing
@@ -608,15 +612,17 @@ where: </artwork>
 
               <t>Length: variable.</t>
 
-              <t>Flags: 1 octet field of following flags:<figure>
-                  <artwork> 
+              <t>Flags: 1 octet field of following flags:
+	      <figure>
+		<artwork> 
       0 1 2 3 4 5 6 7 
       +-+-+-+-+-+-+-+
       |F|B|         | 
       +-+-+-+-+-+-+-+
-
-      where:</artwork>
-                </figure><list style="hanging">
+		</artwork>
+	      </figure>
+	      where:
+	      <list style="hanging">
                   <t>F-Flag: Family flag. If unset, then the Adj-SID refers to
                   an adjacency with outgoing IPv4 encapsulation. If set then
                   the Adj-SID refers to an adjacency with outgoing IPv6
@@ -708,7 +714,7 @@ where: </artwork>
 
             <t>1 octet of flags</t>
             <t>1 octet of Prefix length</t>
-            <t>Prefix (variable length)</t>
+            <t>FEC Prefix (variable length)</t>
             <t>2 octets of Range</t>
             <t>sub-TLVs, where each sub-TLV consists of a sequence of: <list
                 style="symbols">
@@ -898,7 +904,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: 1004</artwork>
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    | IPv6 Address (continued)                      |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  </artwork>
+	    </artwork>
           </figure>
         </section>
 
@@ -960,7 +966,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: 1004</artwork>
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                     Interface ID (32 bits)                    |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  </artwork>
+	    </artwork>
           </figure>
         </section>
 
@@ -985,7 +991,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: 1004</artwork>
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |          IPv4 address  (continued)            |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  </artwork>
+	    </artwork>
           </figure>
         </section>
 
@@ -1016,7 +1022,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: 1004</artwork>
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    | IPv6 Address (continued)                      |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  </artwork>
+	    </artwork>
           </figure>
         </section>
 
