@@ -829,12 +829,27 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
   |                                                            51 |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
               </artwork>
-            </figure></t>
+            </figure>
+	  </t>
 
-<!-- HG: FIXME -->
-	    <t>
-	      Advertising non-contiguos ranges TBD.
-	    </t>
+	  <t>It is not expected that a network operator will be
+	  able to keep fully continguous FEC Prefix / SID/Index
+	  mappings. In order to support noncontinguous mapping
+	  ranges an implementation MAY generate several instances
+	  of Binding TLVs. 
+	  </t>
+
+	  <t>
+	    For example if a router wants to advertise the
+	    following ranges:
+	    <list style="hanging">
+	      <t>Range 16: { 192.168.1.1-15, Index 1-15 }</t>
+	      <t>Range  6: { 192.168.1.22-27, Index 22-27 }</t>
+	      <t>Range 41: { 192.168.1.44-84, Index 80-120 }</t>
+	    </list>
+	    A router would need to advertise three instances of the Binding TLV.
+	  </t>
+
 
 	</section>
 
