@@ -677,7 +677,6 @@ where: </artwork>
         label switched path, can be described. Furthermore also SID/Label
         Bindings from external protocols can get easily re-advertised.</t>
 
-
 	<t>The SID/Label Binding TLV may be used for advertising
 	SID/Label Bindings and their associated Primary and Backup paths.
 	In one single TLV either a primary ERO Path, a backup ERO Path or both
@@ -1124,23 +1123,25 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
       </section>
     </section>
 
-    <section title="Router Capability TLV and SID/Label Range">
-      <t>Segment Routing requires each router to advertise the range of
-      SID/Label values it uses for Segment Routing. The SID/Label ranges are
-      advertised using the newly defined SID/Label Range Sub-TLV inserted into
-      the IS-IS Router Capability TLV-242 that is defined in <xref
-      target="RFC4971"/>.</t>
+    <section title="Router Capabilities">
+      <section title="SID/Label Range Sub-TLV" anchor="SR-RANGE">
 
-      <t>The Router Capability TLV specifies flags that control its
-      advertisement. The SID/Label Range Sub-TLV MUST be propagated throughout
-      the level and need not to be advertised across level boundaries.
-      Therefore Router Capability TLV distribution flags MUST be set
-      accordingly, i.e.: the S flag MUST be unset.</t>
+	<t>Segment Routing requires each router to advertise the range of
+	SID/Label values it uses for Segment Routing. The SID/Label ranges are
+	advertised using the newly defined SID/Label Range Sub-TLV inserted into
+	the IS-IS Router Capability TLV-242 that is defined in <xref
+	target="RFC4971"/>. </t>
 
-      <section anchor="SR-RANGE" title="SID/Label Range Sub-TLV">
+	<t>The Router Capability TLV specifies flags that control its
+	advertisement. The SID/Label Range Sub-TLV MUST be propagated throughout
+	the level and need not to be advertised across level boundaries.
+	Therefore Router Capability TLV distribution flags MUST be set
+	accordingly, i.e.: the S flag MUST be unset.</t>
+
         <t>The SID/Label Range Sub-TLV is optional, MAY appear multiple times
-        inside the Router Capability TLV and has following format:<figure>
-            <artwork>
+        inside the Router Capability TLV and has following format:
+	<figure>
+	  <artwork>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -1148,9 +1149,10 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                  SID/Label Sub-TLV (variable)                 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-where: </artwork>
-          </figure><list style="hanging">
+	  </artwork>
+	</figure>
+	where:
+	  <list style="hanging">
             <t>Type: TBA.</t>
 
             <t>Length: variable.</t>
@@ -1162,6 +1164,50 @@ where: </artwork>
             target="SIDLABEL"/>.</t>
           </list></t>
       </section>
+
+      <section title="SR-Algorithm Sub-TLV" anchor="SR-ALGO">
+
+	<t>Segment Routing requires each router to advertise the set
+	of Algorithms it does support. The supported SR Algorithms
+	are advertised using the newly defined SR-Algorithm
+	Sub-TLV inserted into the IS-IS Router Capability TLV-242
+	that is defined in <xref target="RFC4971"/>. </t>
+
+	<t>The Router Capability TLV specifies flags that control its
+	advertisement. The SR-Algorithm MUST be propagated throughout
+	the level and need not to be advertised across level boundaries.
+	Therefore Router Capability TLV distribution flags MUST be set
+	accordingly, i.e.: the S flag MUST be unset.</t>
+
+        <t>The SR-Algorithm Sub-TLV is optional, it MAY only appear a single time
+        inside the Router Capability TLV. If the SID-Label Capability Sub-TLV
+	is advertised then the SR-Algorithm Sub-TLV MUST also be advertised.
+	</t>
+
+	<t>
+	It has following format:
+	<figure>
+	  <artwork>
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   Type        |     Length    |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Algorithm 1   |  Algorithm 2  | Algorithm ... |  Algorithm n  |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+	  </artwork>
+	</figure>
+	where:
+	  <list style="hanging">
+            <t>Type: TBA.</t>
+            <t>Length: variable.</t>
+            <t>Algorithm: the algorithm code as defined in
+	    <xref target="PREFIXSIDSUBTLV"/>
+	    </t>
+          </list></t>
+      </section>
+
+
     </section>
 
     <section anchor="IANA" title="IANA Considerations">
