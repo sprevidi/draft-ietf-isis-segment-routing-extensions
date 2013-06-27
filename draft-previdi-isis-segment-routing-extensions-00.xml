@@ -480,7 +480,7 @@ where:</artwork>
         target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
       </section>
 
-      <section title="Adjacency Segment Identifier (Adj-SID)">
+      <section title="Adjacency Segment Identifier (Adj-SID) Sub-TLV">
         <t>A new IS-IS Sub-TLV is defined: the Adjacency Segment Identifier
         Sub-TLV (Adj-SID Sub-TLV).</t>
 
@@ -745,8 +745,8 @@ where: </artwork>
 		  corresponds to a mirrored context.</t>
 
 		  <t>X-Flag: Index flag.
-		  Set if the value of the SID/Label SubTLV carries an index.
-		  Unset if the value of the SID/Label SubTLV carries a
+		  Set if the value of the SID/Label Sub-TLV carries an index.
+		  Unset if the value of the SID/Label Sub-TLV carries a
 		  local SID/Label.
 		  </t>
 
@@ -795,9 +795,9 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |            Range = 4          |       /32     |      192      |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |       .0      |        .2     |       .1      |  SubTLV Type  |
+  |       .0      |        .2     |       .1      |  Sub-TLV Type |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  | SubTLV Length |                                             1 |
+  | Sub-TLV Length|                                             1 |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	    </artwork>
 	  </figure></t>
@@ -824,7 +824,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |            Range = 7          |       /24     |      10       |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |       .1      |        .1     |  SubTLV Type  | SubTLV Length |
+  |       .1      |        .1     |  Sub-TLV Type | Sub-TLV Length|
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |                                                            51 |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
