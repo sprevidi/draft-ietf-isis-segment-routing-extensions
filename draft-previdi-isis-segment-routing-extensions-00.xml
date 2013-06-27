@@ -958,8 +958,8 @@ Router-D: 192.0.2.4/32, Prefix-SID: 1004</artwork>
 
         <!-- end Unnumbered Interface ID ERO subtLV -->
 
-        <section title="IPv4 Prefix Backup ERO subTLV">
-          <t>The IPv4 Backup ERO subTLV (Type TBA) describes a Backup LSP path
+        <section title="IPv4 Backup ERO subTLV">
+          <t>The IPv4 Backup ERO subTLV (Type TBA) describes a Backup path
           segment using IPv4 Address style of encoding. Its appearance and
           semantics have been borrowed from <xref target="RFC3209"/>.</t>
 
@@ -984,8 +984,8 @@ Router-D: 192.0.2.4/32, Prefix-SID: 1004</artwork>
 
         <!-- end IPv4 Backup ERO subtLV -->
 
-        <section title="IPv6 Prefix ERO subTLV">
-          <t>The IPv6 ERO subTLV (Type TBA) describes a Backup LSP path
+        <section title="IPv6 Backup ERO subTLV">
+          <t>The IPv6 Backup ERO subTLV (Type TBA) describes a Backup path
           segment using IPv6 Address style of encoding. Its appearance and
           semantics have been borrowed from <xref target="RFC3209"/>.</t>
 
