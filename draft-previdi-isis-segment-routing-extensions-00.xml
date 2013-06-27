@@ -312,8 +312,8 @@
       IGP-LAN-Adjacency-SID and the Binding-SID.</t>
 
       <section anchor="SIDLABEL" title="SID/Label Sub-TLV">
-        <t>The SID Sub-TLV is present in multiple Sub-TLVs defined in this
-        document and contains a SID or a MPLS Label. The SID Sub-TLV has the
+        <t>The SID/Label Sub-TLV is present in multiple Sub-TLVs defined in this
+        document and contains a SID or a MPLS Label. The SID/Label Sub-TLV has the
         following format: <figure>
             <artwork>
  0                   1                   2                   3
@@ -342,23 +342,34 @@ where:</artwork>
         Sub-TLV (Prefix-SID Sub-TLV).</t>
 
         <t>The Prefix-SID Sub-TLV carries the Segment Routing IGP-Prefix-SID
-        as defined in <xref target="draft-filsfils-rtgwg-segment-routing-00"/>
-        and has flags and fields that may be used, in future extensions of
-        Segment Routing, for carrying other types of SIDs.</t>
+        as defined in <xref target="draft-filsfils-rtgwg-segment-routing-00"/>.
+	The 'Prefix SID' must be unique within a given IGP domain.
+	The 'Prefix SID' is an index to determine the actual SID/label value
+	inside the set of all advertised SID/label ranges of a given router.
+	A receiving router uses the index to determine the actual SID/label value
+	in order to construct forwarding state to a particular destination router.
+	</t>
+
+	<t>In many use-cases a 'stable transport' IP Address is overloaded as an
+	identifier of a given node. Because the IP Prefixes may be re-advertised
+	into other levels there may be some ambiguity (e.g. Originating router vs. L1L2 router)
+	for which node a particular IP prefix serves as identifier. The Prefix-SID
+	Sub-TLV contains the necessary flags to dissambiguate IP Prefix to node
+	mappings. Furthermore if a given node has several 'stable transport' IP
+	adresses there are flags to differentiate those among other IP Prefixes
+	advertised from a given node.
+	</t>
 
         <t>A Prefix-SID Sub-TLV is associated to a prefix advertised by a node
         and MAY be present in any of the following TLVs: <list style="hanging">
             <t>TLV-135 (IPv4) defined in <xref target="RFC5305"/>.</t>
-
             <t>TLV-235 (MT-ipv4) defined in <xref target="RFC5120"/>.</t>
-
             <t>TLV-236 (IPv6) defined in <xref target="RFC5308"/>.</t>
-
             <t>TLV-237 (MT-IPv6) defined in <xref target="RFC5120"/>.</t>
           </list></t>
 
-        <t>The Prefix-SID Sub-TLV MUST follow the TLV (e.g.: TLV-135) it is
-        attached to when propagated across level boundaries.</t>
+        <t>The Index inside the Prefix-SID Sub-TLV MUST be preserved when an IP Reachability TLV
+        gets propagated across level boundaries.</t>
 
         <t>The Prefix-SID Sub-TLV has the following format:<figure>
             <artwork>
@@ -454,14 +465,14 @@ where:</artwork>
             style="hanging">
             <t>The prefix to which the Prefix-SID is attached is local to the
             router. I.e.: the prefix is configured on one of the local
-            interfaces. (e.g.: loopback).</t>
+            interfaces. (e.g.: 'stable transport' loopback).</t>
 
-            <t>The prefix to which the Prefix-SID is attached has a length of
-            32.</t>
+            <t>The prefix to which the Prefix-SID is attached MUST have a Prefix length of
+            either /32 (IPv4) or /128 (IPv6).</t>
           </list></t>
 
         <t>The router MUST ignore the N-Flag on a received Prefix-SID if the
-        prefix has a length different than 32.</t>
+        prefix has a Prefix length different than /32 (IPv4) or /128 (IPv6).</t>
 
         <t>The router behavior determined by the P, R and N flags are
         described in <xref
