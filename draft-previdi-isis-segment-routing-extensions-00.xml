@@ -389,10 +389,9 @@ where:</artwork>
 
             <t>Flags: 1 octet field of following flags:<figure>
                 <artwork>
-       0                
        0 1 2 3 4 5 6 7 
       +-+-+-+-+-+-+-+-+
-      |R|N|P          | 
+      |R|N|P|         | 
       +-+-+-+-+-+-+-+-+
 
       where: </artwork>
@@ -672,8 +671,8 @@ where: </artwork>
         label switched path, can be described. Furthermore also SID/Label
         Bindings from external protocols can get easily re-advertised.</t>
 
-        <!-- FIXME -->
-
+ 
+<!-- HG: FIXME -->
         <t>Due to the limited size of subTLV space (See <xref
         target="RFC5311"/> section 4.5 for details), The SID/Label binding TLV
         has cumulative rather than canceling semantics. If a router originates
@@ -682,6 +681,7 @@ where: </artwork>
         accumulated. Since some subTLVs represent an ordered set (e.g. ERO
         subTLVs) allocation and ordering of TLV space inside particular IS-IS
         LSP fragment is significant and needs to be tracked.</t>
+<!-- HG: FIXME -->
 
         <t>The SID/Label Binding TLV has type TBA and has the following
         format:</t>
@@ -706,42 +706,50 @@ where: </artwork>
         <t><list style="symbols">
             <t/>
 
-            <t>1 octet of flags, consisting of: <list style="symbols">
-                <t>1 Bit of Adress Family 'F'</t>
-
-                <t>1 Bit of Mirror Context 'M'</t>
-
-                <t>1 Bit of subTLV presence 'S'</t>
-
-                <t>5 bits are reserved 'R' for future use</t>
-              </list></t>
-
+            <t>1 octet of flags</t>
             <t>1 octet of Prefix length</t>
-
             <t>Prefix (variable length)</t>
-
             <t>2 octets of Range</t>
-
             <t>sub-TLVs, where each sub-TLV consists of a sequence of: <list
                 style="symbols">
                 <t>1 octet of sub-TLV type</t>
-
                 <t>1 octet of length of the value field of the sub-TLV</t>
-
                 <t>0-255 octets of value</t>
               </list></t>
           </list></t>
 
         <section title="Flags">
-          <t>Flags <list style="hanging">
-              <t>Adress Family 'F' Bit: set if the Prefix is IPv6, reset if
-              the Prefix is IPv4</t>
+	  <t>Flags: 1 octet field of following flags:<figure>
+	  <artwork> 
+ 0 1 2 3 4 5 6 7 
++-+-+-+-+-+-+-+-+
+|F|M|X|S|       | 
++-+-+-+-+-+-+-+-+
+	  </artwork>
+                </figure>
+		where:
+		<list style="hanging">
+                  <t>F-Flag: Family flag.
+		  If unset, then the Prefix FEC carries an IPv4 Prefix.
+		  If set then the Prefix FEC carries an IPv6 Prefix.
+		  </t>
 
-              <t>Mirror Context 'M' Bit: set if the advertised SID/path
-              corresponds to a mirrored context.</t>
+		  <t>M-Flag: Mirror Context flag.
+		  Set if the advertised SID/path
+		  corresponds to a mirrored context.</t>
 
-              <t>subTLV present 'S' Bit: set if there are subTLVs present.</t>
-            </list></t>
+		  <t>X-Flag: Index flag.
+		  Set if the value of the SID/Label SubTLV carries an index.
+		  Unset if the value of the SID/Label SubTLV carries a
+		  local SID/Label.
+		  </t>
+
+		  <t>S-Flag: subTLV present 'S' flag:
+		  Set if there are subTLVs present.</t>
+
+                  <t>Other bits: MUST be zero when originated and ignored when
+                  received.</t>
+                </list></t>
         </section>
 
         <section title="Weight">
@@ -977,7 +985,6 @@ Router-D: 192.0.2.4/32, Prefix-SID: 1004</artwork>
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |          IPv4 address  (continued)            |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    0                   1                   2                   3
   </artwork>
           </figure>
         </section>
