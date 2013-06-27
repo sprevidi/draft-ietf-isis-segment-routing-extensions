@@ -659,7 +659,8 @@ where: </artwork>
         </section>
       </section>
 
-      <section title="SID/Label Binding TLV">
+      <section title="SID/Label Binding TLV"
+	       anchor="BINDING-TLV">
         <t>The SID/Label Binding TLV MAY be originated by any router in an
         IS-IS domain. The router may advertise a SID/Label binding to a FEC
         along with at least a single 'nexthop style' anchor. The protocol
@@ -813,7 +814,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: 1004</artwork>
             </figure></t>
 
 
-<!-- FIXME -->
+<!-- HG: FIXME -->
 	    <t>
 	      Advertising non-contiguos ranges TBD.
 	    </t>
@@ -832,6 +833,12 @@ Router-D: 192.0.2.4/32, Prefix-SID: 1004</artwork>
           24 and 4 octets for FEC prefix length 25 up to 32, ...., 16 octets
           for FEC prefix length 113 up to 128.</t>
         </section>
+
+	<section title="SID/Label Sub-TLV">
+	  <t>The SID/Label Sub-TLV contains the SID/Label value as defined in
+	  <xref target="SIDLABEL"/>. It MUST be present in every SID/Label
+	  Binding TLV.</t>
+	</section>
 
         <section title="IPv4 ERO subTLV">
           <t>The IPv4 ERO subTLV (Type TBA) describes a path segment using
