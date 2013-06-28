@@ -312,9 +312,9 @@
       IGP-LAN-Adjacency-SID and the Binding-SID.</t>
 
       <section anchor="SIDLABEL" title="SID/Label Sub-TLV">
-        <t>The SID/Label Sub-TLV is present in multiple Sub-TLVs defined in this
-        document and contains a SID or a MPLS Label. The SID/Label Sub-TLV has the
-        following format: <figure>
+        <t>The SID/Label Sub-TLV is present in multiple Sub-TLVs defined in
+        this document and contains a SID or a MPLS Label. The SID/Label
+        Sub-TLV has the following format: <figure>
             <artwork>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -342,34 +342,37 @@ where:</artwork>
         Sub-TLV (Prefix-SID Sub-TLV).</t>
 
         <t>The Prefix-SID Sub-TLV carries the Segment Routing IGP-Prefix-SID
-        as defined in <xref target="draft-filsfils-rtgwg-segment-routing-00"/>.
-	The 'Prefix SID' must be unique within a given IGP domain.
-	The 'Prefix SID' is an index to determine the actual SID/label value
-	inside the set of all advertised SID/label ranges of a given router.
-	A receiving router uses the index to determine the actual SID/label value
-	in order to construct forwarding state to a particular destination router.
-	</t>
+        as defined in <xref
+        target="draft-filsfils-rtgwg-segment-routing-00"/>. The 'Prefix SID'
+        must be unique within a given IGP domain. The 'Prefix SID' is an index
+        to determine the actual SID/label value inside the set of all
+        advertised SID/label ranges of a given router. A receiving router uses
+        the index to determine the actual SID/label value in order to
+        construct forwarding state to a particular destination router.</t>
 
-	<t>In many use-cases a 'stable transport' IP Address is overloaded as an
-	identifier of a given node. Because the IP Prefixes may be re-advertised
-	into other levels there may be some ambiguity (e.g. Originating router vs. L1L2 router)
-	for which node a particular IP prefix serves as identifier. The Prefix-SID
-	Sub-TLV contains the necessary flags to dissambiguate IP Prefix to node
-	mappings. Furthermore if a given node has several 'stable transport' IP
-	adresses there are flags to differentiate those among other IP Prefixes
-	advertised from a given node.
-	</t>
+        <t>In many use-cases a 'stable transport' IP Address is overloaded as
+        an identifier of a given node. Because the IP Prefixes may be
+        re-advertised into other levels there may be some ambiguity (e.g.
+        Originating router vs. L1L2 router) for which node a particular IP
+        prefix serves as identifier. The Prefix-SID Sub-TLV contains the
+        necessary flags to dissambiguate IP Prefix to node mappings.
+        Furthermore if a given node has several 'stable transport' IP adresses
+        there are flags to differentiate those among other IP Prefixes
+        advertised from a given node.</t>
 
         <t>A Prefix-SID Sub-TLV is associated to a prefix advertised by a node
         and MAY be present in any of the following TLVs: <list style="hanging">
             <t>TLV-135 (IPv4) defined in <xref target="RFC5305"/>.</t>
+
             <t>TLV-235 (MT-IPv4) defined in <xref target="RFC5120"/>.</t>
+
             <t>TLV-236 (IPv6) defined in <xref target="RFC5308"/>.</t>
+
             <t>TLV-237 (MT-IPv6) defined in <xref target="RFC5120"/>.</t>
           </list></t>
 
-        <t>The Index inside the Prefix-SID Sub-TLV MUST be preserved when an IP Reachability TLV
-        gets propagated across level boundaries.</t>
+        <t>The Index inside the Prefix-SID Sub-TLV MUST be preserved when an
+        IP Reachability TLV gets propagated across level boundaries.</t>
 
         <t>The Prefix-SID Sub-TLV has the following format:<figure>
             <artwork>
@@ -387,18 +390,15 @@ where:</artwork>
 
             <t>Length: variable.</t>
 
-            <t>Flags: 1 octet field of following flags:
-	    <figure>
-	      <artwork>
+            <t>Flags: 1 octet field of following flags: <figure>
+                <artwork>
 0 1 2 3 4 5 6 7 
 +-+-+-+-+-+-+-+-+
 |R|N|P|         | 
 +-+-+-+-+-+-+-+-+
-	      </artwork>
-	    </figure>
-	    where:
-	    <list style="hanging">
-	      <t>R-Flag: Re-advertisement flag. If set, then the prefix to
+ </artwork>
+              </figure> where: <list style="hanging">
+                <t>R-Flag: Re-advertisement flag. If set, then the prefix to
                 which this Prefix-SID is attached, has been propagated by the
                 router either from another level (i.e.: from level-1 to
                 level-2 or the opposite) or from redistribution (e.g.: from
@@ -419,9 +419,15 @@ where:</artwork>
                 received.</t>
               </list></t>
 
-            <t>Algorithm: one octet identifying the algorithm to which the
-            Prefix-SID is associated. The following value has been defined:
-            <list style="hanging">
+            <t>Algorithm: the router may use various algorithms when
+            calculating reachability to other nodes or to prefixes attached to
+            these nodes. Examples of these algorithms are metric based
+            Shortest Path First (SPF), various sorts of Constrained SPF, etc.
+            The Algorithm field allows a router to advertise algorithms that
+            router is currently using. SR-Algorithm TLV has following
+            structure: one octet identifying the algorithm to which the
+            Prefix-SID is associated. Currently, the following value has been
+            defined: <list style="hanging">
                 <t>0: Shortest Path First (SPF) algorithm based on link
                 metric.</t>
 
@@ -468,12 +474,13 @@ where:</artwork>
             router. I.e.: the prefix is configured on one of the local
             interfaces. (e.g.: 'stable transport' loopback).</t>
 
-            <t>The prefix to which the Prefix-SID is attached MUST have a Prefix length of
-            either /32 (IPv4) or /128 (IPv6).</t>
+            <t>The prefix to which the Prefix-SID is attached MUST have a
+            Prefix length of either /32 (IPv4) or /128 (IPv6).</t>
           </list></t>
 
         <t>The router MUST ignore the N-Flag on a received Prefix-SID if the
-        prefix has a Prefix length different than /32 (IPv4) or /128 (IPv6).</t>
+        prefix has a Prefix length different than /32 (IPv4) or /128
+        (IPv6).</t>
 
         <t>The router behavior determined by the P, R and N flags are
         described in <xref
@@ -493,9 +500,13 @@ where:</artwork>
         <t>IS-IS adjacencies are advertised using one of the IS-Neighbor TLVs
         below:<list style="hanging">
             <t>TLV-22 <xref target="RFC5305"/></t>
+
             <t>TLV-222 <xref target="RFC5120"/></t>
+
             <t>TLV-23 <xref target="RFC5311"/></t>
+
             <t>TLV-223 <xref target="RFC5311"/></t>
+
             <t>TLV-141 <xref target="RFC5316"/></t>
           </list></t>
 
@@ -522,17 +533,14 @@ where:</artwork>
 
               <t>Length: variable.</t>
 
-              <t>Flags: 1 octet field of following flags:
-	      <figure>
-		<artwork> 
+              <t>Flags: 1 octet field of following flags: <figure>
+                  <artwork> 
       0 1 2 3 4 5 6 7 
       +-+-+-+-+-+-+-+
       |F|B|         | 
       +-+-+-+-+-+-+-+
 		</artwork>
-	      </figure>
-	      where:
-	      <list style="hanging">
+                </figure> where: <list style="hanging">
                   <t>F-Flag: Address-Family flag. If unset, then the Adj-SID
                   refers to an adjacency with outgoing IPv4 encapsulation. If
                   set then the Adj-SID refers to an adjacency with outgoing
@@ -543,10 +551,11 @@ where:</artwork>
                   described in <xref
                   target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
 
-<!-- HG: can we say that it MAY be optional to encode the actual Backup path using a Binding TLV ?
+                  <!-- HG: can we say that it MAY be optional to encode the actual Backup path using a Binding TLV ?
      The Binding TLV would have the same SID/Label value than the Adj-SID and it MUST only
      contain a Backup-ERO list (no Primary ERO).
 -->
+
                   <t>Other bits: MUST be zero when originated and ignored when
                   received.</t>
                 </list></t>
@@ -612,17 +621,14 @@ where: </artwork>
 
               <t>Length: variable.</t>
 
-              <t>Flags: 1 octet field of following flags:
-	      <figure>
-		<artwork> 
+              <t>Flags: 1 octet field of following flags: <figure>
+                  <artwork> 
       0 1 2 3 4 5 6 7 
       +-+-+-+-+-+-+-+
       |F|B|         | 
       +-+-+-+-+-+-+-+
 		</artwork>
-	      </figure>
-	      where:
-	      <list style="hanging">
+                </figure> where: <list style="hanging">
                   <t>F-Flag: Family flag. If unset, then the Adj-SID refers to
                   an adjacency with outgoing IPv4 encapsulation. If set then
                   the Adj-SID refers to an adjacency with outgoing IPv6
@@ -664,8 +670,7 @@ where: </artwork>
         </section>
       </section>
 
-      <section title="SID/Label Binding TLV"
-	       anchor="BINDING-TLV">
+      <section anchor="BINDING-TLV" title="SID/Label Binding TLV">
         <t>The SID/Label Binding TLV MAY be originated by any router in an
         IS-IS domain. The router may advertise a SID/Label binding to a FEC
         along with at least a single 'nexthop style' anchor. The protocol
@@ -677,19 +682,17 @@ where: </artwork>
         label switched path, can be described. Furthermore also SID/Label
         Bindings from external protocols can get easily re-advertised.</t>
 
-	<t>The SID/Label Binding TLV may be used for advertising
-	SID/Label Bindings and their associated Primary and Backup paths.
-	In one single TLV either a primary ERO Path, a backup ERO Path or both
-	are advertised. If a router wants to advertise multiple parallel paths
-	then it can generate several TLVs for the same Prefix/FEC.
-	Each occurence of a Binding TLV with respect with a given FEC Prefix
-	has accumulating and not canceling semantics.
-	Due the space constraints in the 8-Bit IS-IS TLVs an originating
-	router MAY encode a primary ERO path in one SID/Label Binding TLV and the
-	backup ERO path in a second SID/Label Binding TLV.
-	Note that the FEC Prefix and SID/Label Sub-TLV MUST be identical
-	in both TLVs.
-	</t>
+        <t>The SID/Label Binding TLV may be used for advertising SID/Label
+        Bindings and their associated Primary and Backup paths. In one single
+        TLV either a primary ERO Path, a backup ERO Path or both are
+        advertised. If a router wants to advertise multiple parallel paths
+        then it can generate several TLVs for the same Prefix/FEC. Each
+        occurence of a Binding TLV with respect with a given FEC Prefix has
+        accumulating and not canceling semantics. Due the space constraints in
+        the 8-Bit IS-IS TLVs an originating router MAY encode a primary ERO
+        path in one SID/Label Binding TLV and the backup ERO path in a second
+        SID/Label Binding TLV. Note that the FEC Prefix and SID/Label Sub-TLV
+        MUST be identical in both TLVs.</t>
 
         <t>The SID/Label Binding TLV has type TBA and has the following
         format:</t>
@@ -715,81 +718,78 @@ where: </artwork>
             <t/>
 
             <t>1 octet of flags</t>
+
             <t>1 octet of Prefix length</t>
+
             <t>0-16 octets of FEC Prefix</t>
+
             <t>2 octets of Range</t>
+
             <t>sub-TLVs, where each sub-TLV consists of a sequence of: <list
                 style="symbols">
                 <t>1 octet of sub-TLV type</t>
+
                 <t>1 octet of length of the value field of the sub-TLV</t>
+
                 <t>0-255 octets of value</t>
               </list></t>
           </list></t>
 
         <section title="Flags">
-	  <t>Flags: 1 octet field of following flags:<figure>
-	  <artwork> 
+          <t>Flags: 1 octet field of following flags:<figure>
+              <artwork> 
  0 1 2 3 4 5 6 7 
 +-+-+-+-+-+-+-+-+
 |F|M|X|S|       | 
 +-+-+-+-+-+-+-+-+
 	  </artwork>
-                </figure>
-		where:
-		<list style="hanging">
-                  <t>F-Flag: Family flag.
-		  If unset, then the Prefix FEC carries an IPv4 Prefix.
-		  If set then the Prefix FEC carries an IPv6 Prefix.
-		  </t>
+            </figure> where: <list style="hanging">
+              <t>F-Flag: Family flag. If unset, then the Prefix FEC carries an
+              IPv4 Prefix. If set then the Prefix FEC carries an IPv6
+              Prefix.</t>
 
-		  <t>M-Flag: Mirror Context flag.
-		  Set if the advertised SID/path
-		  corresponds to a mirrored context.</t>
+              <t>M-Flag: Mirror Context flag. Set if the advertised SID/path
+              corresponds to a mirrored context.</t>
 
-		  <t>X-Flag: Index flag.
-		  Set if the value of the SID/Label Sub-TLV carries an index.
-		  Unset if the value of the SID/Label Sub-TLV carries a
-		  local SID/Label.
-		  </t>
+              <t>X-Flag: Index flag. Set if the value of the SID/Label Sub-TLV
+              carries an index. Unset if the value of the SID/Label Sub-TLV
+              carries a local SID/Label.</t>
 
-		  <t>S-Flag: subTLV present 'S' flag:
-		  Set if there are subTLVs present.</t>
+              <t>S-Flag: subTLV present 'S' flag: Set if there are subTLVs
+              present.</t>
 
-                  <t>Other bits: MUST be zero when originated and ignored when
-                  received.</t>
-                </list></t>
+              <t>Other bits: MUST be zero when originated and ignored when
+              received.</t>
+            </list></t>
         </section>
 
         <section title="Weight">
-	  <t>Weight: 1 octet: The value represents the weight of the
-	  path for the purpose of load balancing. The use of the weight
-	  is defined in <xref target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
-	</section>
+          <t>Weight: 1 octet: The value represents the weight of the path for
+          the purpose of load balancing. The use of the weight is defined in
+          <xref target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
+        </section>
 
-	<section title="Range">
-
-          <t>The 'Range' field provides the ability to specify a
-          range of addresses and their associated Prefix SIDs. It is essentially
-	  a compression scheme to distribute a continguous Prefix and
-	  their continguous, corresponding SID/Label Block.
-
-	  If a single SID is advertised then the range field MUST be set
-	  to one. For range advertisments > 1, the number of addresses
-          that need to be mapped into a Prefix-SID and the starting value of
-          the Prefix-SID range.</t>
+        <section title="Range">
+          <t>The 'Range' field provides the ability to specify a range of
+          addresses and their associated Prefix SIDs. It is essentially a
+          compression scheme to distribute a continguous Prefix and their
+          continguous, corresponding SID/Label Block. If a single SID is
+          advertised then the range field MUST be set to one. For range
+          advertisments &gt; 1, the number of addresses that need to be mapped
+          into a Prefix-SID and the starting value of the Prefix-SID
+          range.</t>
 
           <t>Example 1: if the following router addresses (loopback addresses)
-          need to be mapped into the corresponding Prefix SID indexes.
-	  <figure suppress-title="true">
+          need to be mapped into the corresponding Prefix SID indexes. <figure
+              suppress-title="true">
               <artwork>
 Router-A: 192.0.2.1/32, Prefix-SID: Index 1
 Router-B: 192.0.2.2/32, Prefix-SID: Index 2
 Router-C: 192.0.2.3/32, Prefix-SID: Index 3
 Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 	      </artwork>
-	  </figure>
-	  <figure suppress-title="true">
-	    <artwork>
+            </figure> <figure suppress-title="true">
+              <artwork>
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -802,12 +802,11 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
   | Sub-TLV Length|                                             1 |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	    </artwork>
-	  </figure></t>
+            </figure></t>
 
           <t>Example-2: If the following prefixes need to be mapped into the
-          corresponding Prefix-SID indexes:
-	  <figure suppress-title="true">
-	    <artwork>
+          corresponding Prefix-SID indexes: <figure suppress-title="true">
+              <artwork>
 10.1.1/24, Prefix-SID: Index 51
 10.1.2/24, Prefix-SID: Index 52
 10.1.3/24, Prefix-SID: Index 53
@@ -816,9 +815,8 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 10.1.6/24, Prefix-SID: Index 56
 10.1.7/24, Prefix-SID: Index 57
 	    </artwork>
-	  </figure>
-	  <figure suppress-title="true">
-	    <artwork>
+            </figure> <figure suppress-title="true">
+              <artwork>
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -831,29 +829,23 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
   |                                                            51 |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
               </artwork>
-            </figure>
-	  </t>
+            </figure></t>
 
-	  <t>It is not expected that a network operator will be
-	  able to keep fully continguous FEC Prefix / SID/Index
-	  mappings. In order to support noncontinguous mapping
-	  ranges an implementation MAY generate several instances
-	  of Binding TLVs. 
-	  </t>
+          <t>It is not expected that a network operator will be able to keep
+          fully continguous FEC Prefix / SID/Index mappings. In order to
+          support noncontinguous mapping ranges an implementation MAY generate
+          several instances of Binding TLVs.</t>
 
-	  <t>
-	    For example if a router wants to advertise the
-	    following ranges:
-	    <list style="hanging">
-	      <t>Range 16: { 192.168.1.1-15, Index 1-15 }</t>
-	      <t>Range  6: { 192.168.1.22-27, Index 22-27 }</t>
-	      <t>Range 41: { 192.168.1.44-84, Index 80-120 }</t>
-	    </list>
-	    A router would need to advertise three instances of the Binding TLV.
-	  </t>
+          <t>For example if a router wants to advertise the following ranges:
+          <list style="hanging">
+              <t>Range 16: { 192.168.1.1-15, Index 1-15 }</t>
 
+              <t>Range 6: { 192.168.1.22-27, Index 22-27 }</t>
 
-	</section>
+              <t>Range 41: { 192.168.1.44-84, Index 80-120 }</t>
+            </list> A router would need to advertise three instances of the
+          Binding TLV.</t>
+        </section>
 
         <section title="Prefix Length, Prefix">
           <t>The 'FEC Prefix' represents the Forwarding equivalence class at
@@ -868,11 +860,11 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
           for FEC prefix length 113 up to 128.</t>
         </section>
 
-	<section title="SID/Label Sub-TLV">
-	  <t>The SID/Label Sub-TLV contains the SID/Label value as defined in
-	  <xref target="SIDLABEL"/>. It MUST be present in every SID/Label
-	  Binding TLV.</t>
-	</section>
+        <section title="SID/Label Sub-TLV">
+          <t>The SID/Label Sub-TLV contains the SID/Label value as defined in
+          <xref target="SIDLABEL"/>. It MUST be present in every SID/Label
+          Binding TLV.</t>
+        </section>
 
         <section title="IPv4 ERO subTLV">
           <t>The IPv4 ERO subTLV (Type TBA) describes a path segment using
@@ -1124,24 +1116,22 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
     </section>
 
     <section title="Router Capabilities">
-      <section title="SID/Label Range Sub-TLV" anchor="SR-RANGE">
+      <section anchor="SR-RANGE" title="SID/Label Range Sub-TLV">
+        <t>Segment Routing requires each router to advertise the range of
+        SID/Label values it uses for Segment Routing. The SID/Label ranges are
+        advertised using the newly defined SID/Label Range Sub-TLV inserted
+        into the IS-IS Router Capability TLV-242 that is defined in <xref
+        target="RFC4971"/>.</t>
 
-	<t>Segment Routing requires each router to advertise the range of
-	SID/Label values it uses for Segment Routing. The SID/Label ranges are
-	advertised using the newly defined SID/Label Range Sub-TLV inserted into
-	the IS-IS Router Capability TLV-242 that is defined in <xref
-	target="RFC4971"/>. </t>
-
-	<t>The Router Capability TLV specifies flags that control its
-	advertisement. The SID/Label Range Sub-TLV MUST be propagated throughout
-	the level and need not to be advertised across level boundaries.
-	Therefore Router Capability TLV distribution flags MUST be set
-	accordingly, i.e.: the S flag MUST be unset.</t>
+        <t>The Router Capability TLV specifies flags that control its
+        advertisement. The SID/Label Range Sub-TLV MUST be propagated
+        throughout the level and need not to be advertised across level
+        boundaries. Therefore Router Capability TLV distribution flags MUST be
+        set accordingly, i.e.: the S flag MUST be unset.</t>
 
         <t>The SID/Label Range Sub-TLV is optional, MAY appear multiple times
-        inside the Router Capability TLV and has following format:
-	<figure>
-	  <artwork>
+        inside the Router Capability TLV and has following format: <figure>
+            <artwork>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -1150,9 +1140,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 |                  SID/Label Sub-TLV (variable)                 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	  </artwork>
-	</figure>
-	where:
-	  <list style="hanging">
+          </figure> where: <list style="hanging">
             <t>Type: TBA.</t>
 
             <t>Length: variable.</t>
@@ -1165,29 +1153,31 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
           </list></t>
       </section>
 
-      <section title="SR-Algorithm Sub-TLV" anchor="SR-ALGO">
+      <section anchor="SR-ALGO" title="SR-Algorithm Sub-TLV">
+        <t>The router may use various algorithms when calculating reachability
+        to other nodes or to prefixes attached to these nodes. Examples of
+        these algorithms are metric based Shortest Path First (SPF), various
+        sorts of Constrained SPF, etc. The SR-Algorithm Sub-TLV allows the
+        router to advertise the algorithms that the router is currently using.
+        The following value has been defined:<list>
+            <t>0: Shortest Path First (SPF) algorithm based on link
+            metric.</t>
+          </list>The SR-Algorithm Sub-TLV is inserted into the IS-IS Router
+        Capability TLV-242 that is defined in <xref target="RFC4971"/>.</t>
 
-	<t>Segment Routing requires each router to advertise the set
-	of Algorithms it does support. The supported SR Algorithms
-	are advertised using the newly defined SR-Algorithm
-	Sub-TLV inserted into the IS-IS Router Capability TLV-242
-	that is defined in <xref target="RFC4971"/>. </t>
+        <t>The Router Capability TLV specifies flags that control its
+        advertisement. The SR-Algorithm MUST be propagated throughout the
+        level and need not to be advertised across level boundaries. Therefore
+        Router Capability TLV distribution flags MUST be set accordingly,
+        i.e.: the S flag MUST be unset.</t>
 
-	<t>The Router Capability TLV specifies flags that control its
-	advertisement. The SR-Algorithm MUST be propagated throughout
-	the level and need not to be advertised across level boundaries.
-	Therefore Router Capability TLV distribution flags MUST be set
-	accordingly, i.e.: the S flag MUST be unset.</t>
+        <t>The SR-Algorithm Sub-TLV is optional, it MAY only appear a single
+        time inside the Router Capability TLV. If the SID-Label Capability
+        Sub-TLV is advertised then the SR-Algorithm Sub-TLV MUST also be
+        advertised.</t>
 
-        <t>The SR-Algorithm Sub-TLV is optional, it MAY only appear a single time
-        inside the Router Capability TLV. If the SID-Label Capability Sub-TLV
-	is advertised then the SR-Algorithm Sub-TLV MUST also be advertised.
-	</t>
-
-	<t>
-	It has following format:
-	<figure>
-	  <artwork>
+        <t>It has following format: <figure>
+            <artwork>
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -1196,18 +1186,15 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
  | Algorithm 1   |  Algorithm 2  | Algorithm ... |  Algorithm n  |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	  </artwork>
-	</figure>
-	where:
-	  <list style="hanging">
+          </figure> where: <list style="hanging">
             <t>Type: TBA.</t>
+
             <t>Length: variable.</t>
-            <t>Algorithm: the algorithm code as defined in
-	    <xref target="PREFIXSIDSUBTLV"/>
-	    </t>
+
+            <t>Algorithm: 1 octet of algorithm <xref
+            target="PREFIXSIDSUBTLV"/></t>
           </list></t>
       </section>
-
-
     </section>
 
     <section anchor="IANA" title="IANA Considerations">
