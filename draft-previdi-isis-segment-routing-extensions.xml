@@ -1213,6 +1213,10 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
       <t>We would like to thank Les Ginsberg, Dave Ward, Dan Frost, Stewart
       Bryant, Pierre Francois and Martin Horneffer for their contribution to
       the content of this document.</t>
+
+      <t>Many thanks to Yakov Rekhter, Ina Minei for their contribution on earlier
+      incarnations of the "Binding TLV" in
+      <xref target="I-D.gredler-isis-label-advertisement"/>. </t>
     </section>
   </middle>
 
@@ -1268,6 +1272,8 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-rtgwg-segment-routing-00.xml"?>
 
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-rtgwg-segment-routing-use-cases-00.xml"?>
+
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-gredler-isis-label-advertisement-03.xml"?>
 
     </references>
   </back>
