@@ -241,7 +241,7 @@
       </address>
     </author>
 
-    <date day="26" month="June" year="2013"/>
+    <date day="1" month="July" year="2013"/>
 
     <area>Routing</area>
 
@@ -298,15 +298,15 @@
       introduced for Segment Routing.</t>
 
       <t>Segment Routing architecture is described in <xref
-      target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
+      target="I-D.filsfils-rtgwg-segment-routing"/>.</t>
 
       <t>Segment Routing use cases are described in <xref
-      target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
+      target="I-D.filsfils-rtgwg-segment-routing-use-cases"/>.</t>
     </section>
 
     <section title="Segment Routing Identifiers">
       <t>Segment Routing architecture (<xref
-      target="draft-filsfils-rtgwg-segment-routing-00"/>) defines different
+      target="I-D.filsfils-rtgwg-segment-routing"/>) defines different
       types of Segment Identifiers (SID). This document defines the IS-IS
       encodings for the IGP-Prefix-SID, the IGP-Adjacency-SID, the
       IGP-LAN-Adjacency-SID and the Binding-SID.</t>
@@ -343,7 +343,7 @@ where:</artwork>
 
         <t>The Prefix-SID Sub-TLV carries the Segment Routing IGP-Prefix-SID
         as defined in <xref
-        target="draft-filsfils-rtgwg-segment-routing-00"/>. The 'Prefix SID'
+        target="I-D.filsfils-rtgwg-segment-routing"/>. The 'Prefix SID'
         must be unique within a given IGP domain. The 'Prefix SID' is an index
         to determine the actual SID/label value inside the set of all
         advertised SID/label ranges of a given router. A receiving router uses
@@ -409,7 +409,7 @@ where:</artwork>
                 Typically, the N-Flag is set on Prefix-SIDs attached to a
                 router loopback address. The N-Flag is set when the Prefix-SID
                 is a Node-SID as described in <xref
-                target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
+                target="I-D.filsfils-rtgwg-segment-routing"/>.</t>
 
                 <t>P-Flag: no-PHP flag. If set, then the penultimate hop MUST
                 NOT pop the Prefix-SID before delivering the packet to the
@@ -433,7 +433,7 @@ where:</artwork>
 
                 <t>Definitions and use of algorithms in Segment Routing are
                 described in <xref
-                target="draft-filsfils-rtgwg-segment-routing-00"/></t>
+                target="I-D.filsfils-rtgwg-segment-routing"/></t>
               </list></t>
 
             <t>SID/Index: 32 bit index defining the offset in the SID/Label
@@ -484,7 +484,7 @@ where:</artwork>
 
         <t>The router behavior determined by the P, R and N flags are
         described in <xref
-        target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
+        target="I-D.filsfils-rtgwg-segment-routing"/>.</t>
       </section>
 
       <section title="Adjacency Segment Identifier (Adj-SID) Sub-TLV">
@@ -493,7 +493,7 @@ where:</artwork>
 
         <t>The Adj-SID Sub-TLV is an optional Sub-TLV carrying the Segment
         Routing IGP-Adjacency-SID as defined in <xref
-        target="draft-filsfils-rtgwg-segment-routing-00"/> with flags and
+        target="I-D.filsfils-rtgwg-segment-routing"/> with flags and
         fields that may be used, in future extensions of Segment Routing, for
         carrying other types of SIDs.</t>
 
@@ -513,7 +513,7 @@ where:</artwork>
         <t>Multiple Adj-SID Sub-TLVs MAY be associated with a single
         IS-neighbor. Examples where more than one Adj-SID may be used per
         IS-neighbor are described in <xref
-        target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
+        target="I-D.filsfils-rtgwg-segment-routing-use-cases"/>.</t>
 
         <section anchor="ADJSIDSUBTLV"
                  title="Adjacency Segment Identifier (Adj-SID) Sub-TLV">
@@ -549,7 +549,7 @@ where:</artwork>
                   <t>B-Flag: Backup flag. If set, the Adj-SID refers to an
                   adjacency being protected (e.g.: using IPFRR or MPLS-FRR) as
                   described in <xref
-                  target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
+                  target="I-D.filsfils-rtgwg-segment-routing-use-cases"/>.</t>
 
                   <!-- HG: can we say that it MAY be optional to encode the actual Backup path using a Binding TLV ?
      The Binding TLV would have the same SID/Label value than the Adj-SID and it MUST only
@@ -563,7 +563,7 @@ where:</artwork>
               <t>Weight: 1 octet. The value represents the weight of the
               Adj-SID for the purpose of load balancing. The use of the weight
               is defined in <xref
-              target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
+              target="I-D.filsfils-rtgwg-segment-routing"/>.</t>
 
               <t>SID/Label Sub-TLV: contains the SID/Label value as defined in
               <xref target="SIDLABEL"/>.</t>
@@ -571,12 +571,12 @@ where:</artwork>
               <t>An SR capable router MAY allocate an Adj-SID for each of its
               adjacencies and SHOULD set the B-Flag when the adjacency is
               protected by a FRR mechanism (IP or MPLS) as described in <xref
-              target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
+              target="I-D.filsfils-rtgwg-segment-routing-use-cases"/>.</t>
 
               <t>The F-flag is used in order for the router to advertise the
               outgoing encapsulation of the adjacency the Adj-SID is attached
               to. Use cases of the use of the F-flag are described in <xref
-              target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
+              target="I-D.filsfils-rtgwg-segment-routing-use-cases"/>.</t>
             </list></t>
         </section>
 
@@ -637,7 +637,7 @@ where: </artwork>
                   <t>B-Flag: Backup flag. If set, the LAN-Adj-SID refers to an
                   adjacency being protected (e.g.: using IPFRR or MPLS-FRR) as
                   described in <xref
-                  target="draft-filsfils-rtgwg-segment-routing-use-cases-00"/>.</t>
+                  target="I-D.filsfils-rtgwg-segment-routing-use-cases"/>.</t>
 
                   <t>Other bits: MUST be zero when originated and ignored when
                   received.</t>
@@ -646,7 +646,7 @@ where: </artwork>
               <t>Weight: 1 octet. The value represents the weight of the
               Adj-SID for the purpose of load balancing. The use of the weight
               is defined in <xref
-              target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
+              target="I-D.filsfils-rtgwg-segment-routing"/>.</t>
 
               <t>System-ID: 6 octets of IS-IS System-ID of length "ID Length"
               as defined in <xref target="ISO10589"/>.</t>
@@ -766,7 +766,7 @@ where: </artwork>
         <section title="Weight">
           <t>Weight: 1 octet: The value represents the weight of the path for
           the purpose of load balancing. The use of the weight is defined in
-          <xref target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
+          <xref target="I-D.filsfils-rtgwg-segment-routing"/>.</t>
         </section>
 
         <section title="Range">
@@ -1264,31 +1264,11 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
     </references>
 
     <references title="Informative References">
-      <reference anchor="draft-filsfils-rtgwg-segment-routing-00">
-        <front>
-          <title>Segment Routing</title>
 
-          <author fullname="Stefano Previdi" initials="S." surname="Previdi"/>
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-rtgwg-segment-routing-00.xml"?>
 
-          <author fullname="Clarence Filsfils" initials="C."
-                  surname="Filsfils"/>
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-rtgwg-segment-routing-use-cases-00.xml"?>
 
-          <date day="20" month="May" year="2013"/>
-        </front>
-      </reference>
-
-      <reference anchor="draft-filsfils-rtgwg-segment-routing-use-cases-00">
-        <front>
-          <title>Segment Routing Use Cases</title>
-
-          <author fullname="Clarence Filsfils" initials="C."
-                  surname="Filsfils"/>
-
-          <date day="20" month="May" year="2013"/>
-        </front>
-      </reference>
-
-      <?rfc ?>
     </references>
   </back>
 </rfc>
