@@ -772,8 +772,8 @@ where: </artwork>
         <section title="Range">
           <t>The 'Range' field provides the ability to specify a range of
           addresses and their associated Prefix SIDs. It is essentially a
-          compression scheme to distribute a continguous Prefix and their
-          continguous, corresponding SID/Label Block. If a single SID is
+          compression scheme to distribute a continuous Prefix and their
+          continuous, corresponding SID/Label Block. If a single SID is
           advertised then the range field MUST be set to one. For range
           advertisments &gt; 1, the number of addresses that need to be mapped
           into a Prefix-SID and the starting value of the Prefix-SID
@@ -832,8 +832,8 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
             </figure></t>
 
           <t>It is not expected that a network operator will be able to keep
-          fully continguous FEC Prefix / SID/Index mappings. In order to
-          support noncontinguous mapping ranges an implementation MAY generate
+          fully continuous FEC Prefix / SID/Index mappings. In order to
+          support noncontinuous mapping ranges an implementation MAY generate
           several instances of Binding TLVs.</t>
 
           <t>For example if a router wants to advertise the following ranges:
