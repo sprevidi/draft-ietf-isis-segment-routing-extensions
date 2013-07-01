@@ -1214,8 +1214,8 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
       Bryant, Pierre Francois and Martin Horneffer for their contribution to
       the content of this document.</t>
 
-      <t>Many thanks to Yakov Rekhter, Ina Minei for their contribution on earlier
-      incarnations of the "Binding TLV" in
+      <t>Many thanks to Yakov Rekhter and Ina Minei for their contribution on earlier
+      incarnations of the "Binding / MPLS Label TLV" in
       <xref target="I-D.gredler-isis-label-advertisement"/>. </t>
     </section>
   </middle>
