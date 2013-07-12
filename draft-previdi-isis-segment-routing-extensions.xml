@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-previdi-isis-segment-routing-extensions-01"
+<rfc category="std" docName="draft-previdi-isis-segment-routing-extensions-02"
      ipr="trust200902">
   <front>
     <title abbrev="IS-IS Extensions for Segment Routing">IS-IS Extensions for
@@ -95,24 +95,6 @@
       </address>
     </author>
 
-    <author fullname="Bruno Decraene" initials="B." surname="Decraene">
-      <organization>Orange</organization>
-
-      <address>
-        <postal>
-          <street/>
-
-          <city/>
-
-          <code/>
-
-          <country>FR</country>
-        </postal>
-
-        <email>bruno.decraene@orange.com</email>
-      </address>
-    </author>
-
     <author fullname="Stephane Litkowski" initials="S." surname="Litkowski">
       <organization>Orange</organization>
 
@@ -131,117 +113,7 @@
       </address>
     </author>
 
-    <author fullname="Rudiger Geib" initials="R." surname="Geib">
-      <organization>Deutsche Telekom</organization>
-
-      <address>
-        <postal>
-          <street/>
-
-          <city/>
-
-          <code/>
-
-          <country>DE</country>
-        </postal>
-
-        <email>Rudiger.Geib@telekom.de</email>
-      </address>
-    </author>
-
-    <author fullname="Igor Milojevic" initials="I." surname="Milojevic">
-      <organization>Telekom Srbija</organization>
-
-      <address>
-        <postal>
-          <street>Takovska 2</street>
-
-          <city>Belgrade</city>
-
-          <code/>
-
-          <country>RS</country>
-        </postal>
-
-        <email>igormilojevic@telekom.rs</email>
-      </address>
-    </author>
-
-    <author fullname="Rob Shakir" initials="R." surname="Shakir">
-      <organization>British Telecom</organization>
-
-      <address>
-        <postal>
-          <street/>
-
-          <city>London</city>
-
-          <code/>
-
-          <country>UK</country>
-        </postal>
-
-        <email>rob.shakir@bt.com</email>
-      </address>
-    </author>
-
-    <author fullname="Saku Ytti" initials="S." surname="Ytti">
-      <organization>TDC Oy</organization>
-
-      <address>
-        <postal>
-          <street>Mechelininkatu 1a</street>
-
-          <city>TDC</city>
-
-          <code>00094</code>
-
-          <country>FI</country>
-        </postal>
-
-        <email>saku@ytti.fi</email>
-      </address>
-    </author>
-
-    <author fullname="Wim Henderickx" initials="W." surname="Henderickx">
-      <organization>Alcatel-Lucent</organization>
-
-      <address>
-        <postal>
-          <street>Copernicuslaan 50</street>
-
-          <city>Antwerp</city>
-
-          <code>2018</code>
-
-          <country>BE</country>
-        </postal>
-
-        <email>wim.henderickx@alcatel-lucent.com</email>
-      </address>
-    </author>
-
-    <author fullname="Jeff Tantsura" initials="J." surname="Tantsura">
-      <organization>Ericsson</organization>
-
-      <address>
-        <postal>
-          <street>300 Holger Way</street>
-
-          <city>San Jose</city>
-
-          <region>CA</region>
-
-          <code>95134</code>
-
-          <country>US</country>
-        </postal>
-
-        <email>Jeff.Tantsura@ericsson.com</email>
-      </address>
-    </author>
-
-    <date day="1" month="July" year="2013"/>
+    <date day="12" month="July" year="2013"/>
 
     <area>Routing</area>
 
@@ -306,10 +178,10 @@
 
     <section title="Segment Routing Identifiers">
       <t>Segment Routing architecture (<xref
-      target="I-D.filsfils-rtgwg-segment-routing"/>) defines different
-      types of Segment Identifiers (SID). This document defines the IS-IS
-      encodings for the IGP-Prefix-SID, the IGP-Adjacency-SID, the
-      IGP-LAN-Adjacency-SID and the Binding-SID.</t>
+      target="I-D.filsfils-rtgwg-segment-routing"/>) defines different types
+      of Segment Identifiers (SID). This document defines the IS-IS encodings
+      for the IGP-Prefix-SID, the IGP-Adjacency-SID, the IGP-LAN-Adjacency-SID
+      and the Binding-SID.</t>
 
       <section anchor="SIDLABEL" title="SID/Label Sub-TLV">
         <t>The SID/Label Sub-TLV is present in multiple Sub-TLVs defined in
@@ -342,13 +214,12 @@ where:</artwork>
         Sub-TLV (Prefix-SID Sub-TLV).</t>
 
         <t>The Prefix-SID Sub-TLV carries the Segment Routing IGP-Prefix-SID
-        as defined in <xref
-        target="I-D.filsfils-rtgwg-segment-routing"/>. The 'Prefix SID'
-        must be unique within a given IGP domain. The 'Prefix SID' is an index
-        to determine the actual SID/label value inside the set of all
-        advertised SID/label ranges of a given router. A receiving router uses
-        the index to determine the actual SID/label value in order to
-        construct forwarding state to a particular destination router.</t>
+        as defined in <xref target="I-D.filsfils-rtgwg-segment-routing"/>. The
+        'Prefix SID' must be unique within a given IGP domain. The 'Prefix
+        SID' is an index to determine the actual SID/label value inside the
+        set of all advertised SID/label ranges of a given router. A receiving
+        router uses the index to determine the actual SID/label value in order
+        to construct forwarding state to a particular destination router.</t>
 
         <t>In many use-cases a 'stable transport' IP Address is overloaded as
         an identifier of a given node. Because the IP Prefixes may be
@@ -483,8 +354,7 @@ where:</artwork>
         (IPv6).</t>
 
         <t>The router behavior determined by the P, R and N flags are
-        described in <xref
-        target="I-D.filsfils-rtgwg-segment-routing"/>.</t>
+        described in <xref target="I-D.filsfils-rtgwg-segment-routing"/>.</t>
       </section>
 
       <section title="Adjacency Segment Identifier (Adj-SID) Sub-TLV">
@@ -493,8 +363,8 @@ where:</artwork>
 
         <t>The Adj-SID Sub-TLV is an optional Sub-TLV carrying the Segment
         Routing IGP-Adjacency-SID as defined in <xref
-        target="I-D.filsfils-rtgwg-segment-routing"/> with flags and
-        fields that may be used, in future extensions of Segment Routing, for
+        target="I-D.filsfils-rtgwg-segment-routing"/> with flags and fields
+        that may be used, in future extensions of Segment Routing, for
         carrying other types of SIDs.</t>
 
         <t>IS-IS adjacencies are advertised using one of the IS-Neighbor TLVs
@@ -1209,14 +1079,20 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
       <t>TBD</t>
     </section>
 
+    <section anchor="Contributors" title="Contributors">
+      <t>The following people gave a substantial contribution to the content
+      of this document: Martin Horneffer, Bruno Decraene, Igor Milojevic, Rob
+      Shakir, Saku Ytti and Wim Henderickx.</t>
+    </section>
+
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>We would like to thank Les Ginsberg, Dave Ward, Dan Frost, Stewart
-      Bryant, Pierre Francois and Martin Horneffer for their contribution to
-      the content of this document.</t>
+      Bryant and Pierre Francois for their contribution to the content of this
+      document.</t>
 
-      <t>Many thanks to Yakov Rekhter and Ina Minei for their contribution on earlier
-      incarnations of the "Binding / MPLS Label TLV" in
-      <xref target="I-D.gredler-isis-label-advertisement"/>. </t>
+      <t>Many thanks to Yakov Rekhter and Ina Minei for their contribution on
+      earlier incarnations of the "Binding / MPLS Label TLV" in <xref
+      target="I-D.gredler-isis-label-advertisement"/>.</t>
     </section>
   </middle>
 
@@ -1268,13 +1144,11 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
     </references>
 
     <references title="Informative References">
-
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-rtgwg-segment-routing-00.xml"?>
 
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-rtgwg-segment-routing-use-cases-00.xml"?>
 
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-gredler-isis-label-advertisement-03.xml"?>
-
     </references>
   </back>
 </rfc>
