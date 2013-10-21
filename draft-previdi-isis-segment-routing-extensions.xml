@@ -734,6 +734,39 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
           Binding TLV.</t>
         </section>
 
+        <!-- begin ERO Metric subTLV -->
+
+        <section anchor="METRICTLV" title="ERO Metric sub-TLV">
+          <t>ERO Metric sub-TLV is a Sub-TLV of the SID/Label Binding TLV.</t>
+
+          <t>The ERO Metric sub-TLV carries the cost of an ERO path. It is
+          used to compare the cost of a given source/destination path. A
+          router SHOULD advertise the ERO Metric sub-TLV. The cost of the ERO
+          Metric sub-TLV SHOULD be set to the cumulative IGP or TE path cost
+          of the advertised ERO. Since manipulation of the Metric field may
+          attract or distract traffic from and to the advertised segment it
+          MAY be manually overridden. <figure
+              title="ERO Metric sub-TLV format">
+              <artwork>
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |     Type      |    Length     |             Metric            |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |      Metric (continued)       |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+	      </artwork>
+            </figure> where: <list style="hanging">
+              <t>Type: TBA</t>
+
+              <t>Length: 4 bytes</t>
+
+              <t>Metric: 4 bytes</t>
+            </list></t>
+        </section>
+
+        <!-- end ERO metric subTLV -->
+
         <section title="IPv4 ERO subTLV">
           <t>The IPv4 ERO subTLV (Type TBA) describes a path segment using
           IPv4 address style of encoding. Its semantics have been borrowed
