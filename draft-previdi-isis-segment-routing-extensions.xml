@@ -198,7 +198,7 @@
 
 where:</artwork>
           </figure><list>
-            <t>Type: TBA</t>
+            <t>Type: 1</t>
 
             <t>Length: variable (3 or 4)</t>
 
@@ -1084,7 +1084,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
         <t>The router may use various algorithms when calculating reachability
         to other nodes or to prefixes attached to these nodes. Examples of
         these algorithms are metric based Shortest Path First (SPF), various
-        sorts of Constrained SPF, etc. The SR-Algorithm Sub-TLV allows the
+        sorts of Constrained SPF, etc. The SR-Algorithm Sub-TLV (Type 15) allows the
         router to advertise the algorithms that the router is currently using.
         The following value has been defined:<list>
             <t>0: Shortest Path First (SPF) algorithm based on link
@@ -1114,7 +1114,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	  </artwork>
           </figure> where: <list style="hanging">
-            <t>Type: TBA.</t>
+            <t>Type: 15</t>
 
             <t>Length: variable.</t>
 
@@ -1250,6 +1250,13 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 	<c></c>
 	<c>2</c>
 	<c>&gt;=0</c>
+
+	<c></c>
+	<c></c>
+	<c>SR Algorithm</c>
+	<c></c>
+	<c>15</c>
+	<c>1</c>
 
       </texttable>
 
