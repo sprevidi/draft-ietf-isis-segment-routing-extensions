@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-previdi-isis-segment-routing-extensions-02"
+<rfc category="std" docName="draft-previdi-isis-segment-routing-extensions-03"
      ipr="trust200902">
   <front>
     <title abbrev="IS-IS Extensions for Segment Routing">IS-IS Extensions for
@@ -113,7 +113,7 @@
       </address>
     </author>
 
-    <date day="12" month="July" year="2013"/>
+    <date day="21" month="October" year="2013"/>
 
     <area>Routing</area>
 
@@ -164,7 +164,7 @@
       and MPLS data-planes, and do not require any additional signaling (other
       than the regular IGP). For example, when used in MPLS networks, SR paths
       do not require any LDP or RSVP-TE signaling. Still, SR can interoperate
-      in the presence of LSPs established with RSVP or LDP .</t>
+      in the presence of LSPs established with RSVP or LDP.</t>
 
       <t>This draft describes the necessary IS-IS extensions that need to be
       introduced for Segment Routing.</t>
@@ -309,7 +309,7 @@ where:</artwork>
 
             <t>SID/Index: 32 bit index defining the offset in the SID/Label
             space advertised by this router using the encodings defined in
-            <xref target="SR-RANGE"/>.</t>
+            <xref target="SR-CAP"/>.</t>
           </list></t>
 
         <t>Multiple Prefix-SIDs Sub-TLVs MAY appear on the same prefix in
@@ -499,10 +499,10 @@ where: </artwork>
       +-+-+-+-+-+-+-+
 		</artwork>
                 </figure> where: <list style="hanging">
-                  <t>F-Flag: Family flag. If unset, then the Adj-SID refers to
-                  an adjacency with outgoing IPv4 encapsulation. If set then
-                  the Adj-SID refers to an adjacency with outgoing IPv6
-                  encapsulation.</t>
+                  <t>F-Flag: Address Family flag. If unset, then the Adj-SID
+                  refers to an adjacency with outgoing IPv4 encapsulation. If
+                  set then the Adj-SID refers to an adjacency with outgoing
+                  IPv6 encapsulation.</t>
 
                   <t>B-Flag: Backup flag. If set, the LAN-Adj-SID refers to an
                   adjacency being protected (e.g.: using IPFRR or MPLS-FRR) as
@@ -585,8 +585,6 @@ where: </artwork>
         </figure>
 
         <t><list style="symbols">
-            <t/>
-
             <t>1 octet of flags</t>
 
             <t>1 octet of Prefix length</t>
@@ -614,9 +612,9 @@ where: </artwork>
 +-+-+-+-+-+-+-+-+
 	  </artwork>
             </figure> where: <list style="hanging">
-              <t>F-Flag: Family flag. If unset, then the Prefix FEC carries an
-              IPv4 Prefix. If set then the Prefix FEC carries an IPv6
-              Prefix.</t>
+              <t>F-Flag: Address Family flag. If unset, then the Prefix FEC
+              carries an IPv4 Prefix. If set then the Prefix FEC carries an
+              IPv6 Prefix.</t>
 
               <t>M-Flag: Mirror Context flag. Set if the advertised SID/path
               corresponds to a mirrored context.</t>
@@ -986,41 +984,63 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
     </section>
 
     <section title="Router Capabilities">
-      <section anchor="SR-RANGE" title="SID/Label Range Sub-TLV">
-        <t>Segment Routing requires each router to advertise the range of
-        SID/Label values it uses for Segment Routing. The SID/Label ranges are
-        advertised using the newly defined SID/Label Range Sub-TLV inserted
-        into the IS-IS Router Capability TLV-242 that is defined in <xref
+      <section anchor="SR-CAP" title="SR-Capabilities Sub-TLV">
+        <t>Segment Routing requires each router to advertise its SR data-plane
+        capability and the range of SID/Label values it uses for Segment
+        Routing. Data-plane capabilities and SID/Label ranges are advertised
+        using the newly defined SR-Capabilities Sub-TLV inserted into the
+        IS-IS Router Capability TLV-242 that is defined in <xref
         target="RFC4971"/>.</t>
 
         <t>The Router Capability TLV specifies flags that control its
-        advertisement. The SID/Label Range Sub-TLV MUST be propagated
+        advertisement. The SR Capabilities Sub-TLV MUST be propagated
         throughout the level and need not to be advertised across level
         boundaries. Therefore Router Capability TLV distribution flags MUST be
         set accordingly, i.e.: the S flag MUST be unset.</t>
 
-        <t>The SID/Label Range Sub-TLV is optional, MAY appear multiple times
+        <t>The SR Capabilities Sub-TLV is optional, MAY appear multiple times
         inside the Router Capability TLV and has following format: <figure>
             <artwork>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Type        |     Length    |           Range               |
+|   Type        |     Length    |    Flags      |    Range      |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                  SID/Label Sub-TLV (variable)                 |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Range (cont.) |      SID/Label Sub-TLV (variable size)        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+            
 	  </artwork>
           </figure> where: <list style="hanging">
             <t>Type: TBA.</t>
 
             <t>Length: variable.</t>
 
-            <t>Range: 2 octet value defining the number of values of the range
-            from the starting value defined in the SID/Label Sub-TLV.</t>
+            <t>Flags: 1 octet of flags. The following are defined: <figure>
+                <artwork>
+   0               
+   0 1 2 3 4 5 6 7 
+   +-+-+-+-+-+-+-+-+
+   |I|V|           | 
+   +-+-+-+-+-+-+-+-+
+</artwork>
+              </figure>where: <list style="hanging">
+                <t>I-Flag: IPv4 flag. If set, then the router is capable of
+                outgoing IPv4 encapsulation on all interfaces.</t>
+
+                <t>V-Flag: IPv6 flag. If set, then the router is capable of
+                outgoing IPv6 encapsulation on all interfaces.</t>
+              </list></t>
+
+            <t>Range: 2 octets value defining the number of values of the
+            range from the starting value defined in the SID/Label
+            Sub-TLV.</t>
 
             <t>SID/Label Sub-TLV: SID/Label value as defined in <xref
             target="SIDLABEL"/>.</t>
           </list></t>
+
+        <t>If multiple occurrence of the SR-Capabilities Sub-TLV are
+        advertised by the same router, only the Flags in the first occurrence
+        of the Sub-TLV are to be taken into account.</t>
       </section>
 
       <section anchor="SR-ALGO" title="SR-Algorithm Sub-TLV">
@@ -1146,7 +1166,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
     <references title="Informative References">
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-rtgwg-segment-routing-00.xml"?>
 
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-rtgwg-segment-routing-use-cases-00.xml"?>
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-rtgwg-segment-routing-use-cases-01.xml"?>
 
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-gredler-isis-label-advertisement-03.xml"?>
     </references>
