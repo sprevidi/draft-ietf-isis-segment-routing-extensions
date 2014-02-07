@@ -584,7 +584,7 @@ where: </artwork>
         SID/Label Binding TLV. Note that the FEC Prefix and SID/Label Sub-TLV
         MUST be identical in both TLVs.</t>
 
-        <t>The SID/Label Binding TLV has type TBA and has the following
+        <t>The SID/Label Binding TLV has type 149 and has the following
         format:</t>
 
         <figure anchor="SID-MPLS-Binding-TLV-figure"
