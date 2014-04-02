@@ -133,7 +133,7 @@
       </address>
     </author>
 
-    <date day="7" month="February" year="2014"/>
+    <date day="2" month="April" year="2014"/>
 
     <area>Routing</area>
 
@@ -193,7 +193,7 @@
       target="I-D.filsfils-rtgwg-segment-routing"/>.</t>
 
       <t>Segment Routing use cases are described in <xref
-      target="I-D.filsfils-rtgwg-segment-routing-use-cases"/>.</t>
+      target="I-D.filsfils-spring-segment-routing-use-cases"/>.</t>
     </section>
 
     <section title="Segment Routing Identifiers">
@@ -403,7 +403,7 @@ where:</artwork>
         <t>Multiple Adj-SID Sub-TLVs MAY be associated with a single
         IS-neighbor. Examples where more than one Adj-SID may be used per
         IS-neighbor are described in <xref
-        target="I-D.filsfils-rtgwg-segment-routing-use-cases"/>.</t>
+        target="I-D.filsfils-spring-segment-routing-use-cases"/>.</t>
 
         <section anchor="ADJSIDSUBTLV"
                  title="Adjacency Segment Identifier (Adj-SID) Sub-TLV">
@@ -439,7 +439,7 @@ where:</artwork>
                   <t>B-Flag: Backup flag. If set, the Adj-SID refers to an
                   adjacency being protected (e.g.: using IPFRR or MPLS-FRR) as
                   described in <xref
-                  target="I-D.filsfils-rtgwg-segment-routing-use-cases"/>.</t>
+                  target="I-D.filsfils-spring-segment-routing-use-cases"/>.</t>
 
                   <!-- HG: can we say that it MAY be optional to encode the actual Backup path using a Binding TLV ?
      The Binding TLV would have the same SID/Label value than the Adj-SID and it MUST only
@@ -461,12 +461,21 @@ where:</artwork>
               <t>An SR capable router MAY allocate an Adj-SID for each of its
               adjacencies and SHOULD set the B-Flag when the adjacency is
               protected by a FRR mechanism (IP or MPLS) as described in <xref
-              target="I-D.filsfils-rtgwg-segment-routing-use-cases"/>.</t>
+              target="I-D.filsfils-spring-segment-routing-use-cases"/>.</t>
+
+              <t>An SR capable router MAY allocate more than one Adj-SID to an
+              adjacency. </t>
+
+              <t>An SR capable router MAY allocate the same Adj-SID to
+              different adjacencies.</t>
+
+              <t>Examples of use of the Adj-SID Sub-TLV are described in <xref
+              target="I-D.filsfils-rtgwg-segment-routing"/>.</t>
 
               <t>The F-flag is used in order for the router to advertise the
               outgoing encapsulation of the adjacency the Adj-SID is attached
               to. Use cases of the use of the F-flag are described in <xref
-              target="I-D.filsfils-rtgwg-segment-routing-use-cases"/>.</t>
+              target="I-D.filsfils-spring-segment-routing-use-cases"/>.</t>
             </list></t>
         </section>
 
@@ -527,7 +536,7 @@ where: </artwork>
                   <t>B-Flag: Backup flag. If set, the LAN-Adj-SID refers to an
                   adjacency being protected (e.g.: using IPFRR or MPLS-FRR) as
                   described in <xref
-                  target="I-D.filsfils-rtgwg-segment-routing-use-cases"/>.</t>
+                  target="I-D.filsfils-spring-segment-routing-use-cases"/>.</t>
 
                   <t>Other bits: MUST be zero when originated and ignored when
                   received.</t>
@@ -1094,9 +1103,48 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
             target="SIDLABEL"/>.</t>
           </list></t>
 
+        <t>A router MAY advertise multiple ranges using multiple occurrences
+        of the SR-Capability Sub-TLV.</t>
+
         <t>If multiple occurrence of the SR-Capabilities Sub-TLV are
         advertised by the same router, only the Flags in the first occurrence
         of the Sub-TLV are to be taken into account.</t>
+
+        <t>When multiple ranges are advertised, the receiving router will
+        concatenate them in order for the index to be consistent across
+        ranges. An example is given here below: <figure suppress-title="true">
+            <artwork>
+   Advertised ranges:  
+      Range 1: [100, 199]
+      Range 2: [1000, 1099]
+
+   The ranges are concatenated and the SRGB is as follows:
+
+   SRGB = [100, 199]
+          [1000, 1099]
+
+   The indexes will span multiple ranges:
+
+      index=0   means label 100
+      ...
+      index 99  means label 199
+      index 100 means label 1000 
+      index 101 means label 1001
+      ...
+      index 199 means label 1099</artwork>
+          </figure></t>
+
+        <t>If subsequently, the originating router advertises an additional
+        range, it MUST do so by following the same sequence:<figure
+            suppress-title="true">
+            <artwork>
+Advertised ranges:  
+      Range 1: [100, 199]
+      Range 2: [1000, 1099]
+      Range 3: [500, 599]
+</artwork>
+          </figure>in order to preserve existing indexes. In the example
+        above, indexes from 0 to 199 are unchanged.</t>
       </section>
 
       <section anchor="SR-ALGO" title="SR-Algorithm Sub-TLV">
@@ -1383,8 +1431,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
     <section anchor="Contributors" title="Contributors">
       <t>The following people gave a substantial contribution to the content
       of this document: Martin Horneffer, Bruno Decraene, Igor Milojevic, Rob
-      Shakir, Saku Ytti, Wim Henderickx, Jeff Tantsura, Les Ginsberg and
-      Steven Luong.</t>
+      Shakir, Saku Ytti, Wim Henderickx, Les Ginsberg and Steven Luong.</t>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
@@ -1393,8 +1440,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
       document.</t>
 
       <t>Many thanks to Yakov Rekhter and Ina Minei for their contribution on
-      earlier incarnations of the "Binding / MPLS Label TLV" in <xref
-      target="I-D.gredler-isis-label-advertisement"/>.</t>
+      earlier incarnations of the "Binding / MPLS Label TLV".</t>
     </section>
   </middle>
 
@@ -1448,9 +1494,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
     <references title="Informative References">
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-rtgwg-segment-routing-01.xml"?>
 
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-rtgwg-segment-routing-use-cases-02.xml"?>
-
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-gredler-isis-label-advertisement-03.xml"?>
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-spring-segment-routing-use-cases-00.xml"?>
     </references>
   </back>
 </rfc>
