@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-previdi-isis-segment-routing-extensions-05"
+<rfc category="std" docName="draft-ietf-isis-segment-routing-extensions-00"
      ipr="trust200902">
   <front>
     <title abbrev="IS-IS Extensions for Segment Routing">IS-IS Extensions for
@@ -226,6 +226,13 @@ where:</artwork>
             represent a MPLS label. If length is 4 then the value represents a
             32 bits SID.</t>
           </list></t>
+
+        <t>Other lengths may be defined in future extensions, therefore
+        compliant application MUST be capable of handling different lengths
+        without compromising the signaling and forwarding operations. This
+        means, at this stage of this document, that the receiving router MUST
+        silently ignore SID/Label sub-TLVs whose length is different from 3
+        and 4.</t>
       </section>
 
       <section anchor="PREFIXSIDSUBTLV"
@@ -464,7 +471,7 @@ where:</artwork>
               target="I-D.filsfils-spring-segment-routing-use-cases"/>.</t>
 
               <t>An SR capable router MAY allocate more than one Adj-SID to an
-              adjacency. </t>
+              adjacency.</t>
 
               <t>An SR capable router MAY allocate the same Adj-SID to
               different adjacencies.</t>
