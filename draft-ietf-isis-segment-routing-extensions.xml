@@ -133,7 +133,7 @@
       </address>
     </author>
 
-    <date day="2" month="April" year="2014"/>
+    <date day="7" month="April" year="2014"/>
 
     <area>Routing</area>
 
@@ -227,12 +227,8 @@ where:</artwork>
             32 bits SID.</t>
           </list></t>
 
-        <t>Other lengths may be defined in future extensions, therefore
-        compliant application MUST be capable of handling different lengths
-        without compromising the signaling and forwarding operations. This
-        means, at this stage of this document, that the receiving router MUST
-        silently ignore SID/Label sub-TLVs whose length is different from 3
-        and 4.</t>
+        <t>The receiving router MUST silently ignore SID/Label sub-TLVs whose
+        length is different from 3 and 4.</t>
       </section>
 
       <section anchor="PREFIXSIDSUBTLV"
@@ -1079,7 +1075,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 |   Type        |     Length    |    Flags      |    Range      |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |           Range (cont.)       | SID/Label Sub-TLV (variable)  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+            
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+   
   </artwork>
           </figure> where: <list style="hanging">
             <t>Type: 2</t>
@@ -1110,48 +1106,54 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
             target="SIDLABEL"/>.</t>
           </list></t>
 
-        <t>A router MAY advertise multiple ranges using multiple occurrences
-        of the SR-Capability Sub-TLV.</t>
+        <t>Multiple occurrence of the SR-Capabilities Sub-TLV MAY be
+        advertised, in order to advertise multiple ranges. In such case:<list
+            style="symbols">
+            <t>Only the Flags in the first occurrence of the Sub-TLV are to be
+            taken into account.</t>
 
-        <t>If multiple occurrence of the SR-Capabilities Sub-TLV are
-        advertised by the same router, only the Flags in the first occurrence
-        of the Sub-TLV are to be taken into account.</t>
+            <t>The originating router MUST encode ranges each into a different
+            SR-Capability Sub-TLV and all SR-Capability TLVs MUST be encoded
+            within the same LSP fragment. </t>
 
-        <t>When multiple ranges are advertised, the receiving router will
-        concatenate them in order for the index to be consistent across
-        ranges. An example is given here below: <figure suppress-title="true">
+            <t>The order of the ranges (i.e.: SR-Capability Sub-TLVs) in the
+            LSP fragment is decided by the originator and the receiver routers
+            MUST NOT re-order the received ranges.</t>
+
+            <t>The originating router decides the order of the set of
+            originated SR-Capability Sub-TLV (sorted or not). In all cases,
+            the originating router SHOULD ensure the order is same after a
+            graceful restart (using checkpointing or any other mechanism) in
+            order to guarantee the same order before and after GR.</t>
+          </list></t>
+
+        <t>Here follows an example of advertisement of multiple ranges:<figure
+            suppress-title="true">
             <artwork>
-   Advertised ranges:  
+   The originating router advertises following ranges:  
       Range 1: [100, 199]
       Range 2: [1000, 1099]
+      Range 3: [500, 599]
 
-   The ranges are concatenated and the SRGB is as follows:
+   The receiving routers concatenate the ranges and build the SRGB 
+   is as follows:
 
    SRGB = [100, 199]
           [1000, 1099]
+          [500, 599]
 
-   The indexes will span multiple ranges:
+   The indexes span multiple ranges:
 
       index=0   means label 100
       ...
       index 99  means label 199
       index 100 means label 1000 
-      index 101 means label 1001
+      index 199 means label 1099
       ...
-      index 199 means label 1099</artwork>
-          </figure></t>
-
-        <t>If subsequently, the originating router advertises an additional
-        range, it MUST do so by following the same sequence:<figure
-            suppress-title="true">
-            <artwork>
-Advertised ranges:  
-      Range 1: [100, 199]
-      Range 2: [1000, 1099]
-      Range 3: [500, 599]
+      index 200 means label 500
+      ...
 </artwork>
-          </figure>in order to preserve existing indexes. In the example
-        above, indexes from 0 to 199 are unchanged.</t>
+          </figure></t>
       </section>
 
       <section anchor="SR-ALGO" title="SR-Algorithm Sub-TLV">
