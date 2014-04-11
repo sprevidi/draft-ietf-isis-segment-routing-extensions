@@ -203,7 +203,7 @@
       for the IGP-Prefix-SID, the IGP-Adjacency-SID, the IGP-LAN-Adjacency-SID
       and the Binding-SID.</t>
 
-      <section anchor="SIDLABEL" title="SID/Label Sub-TLV">
+      <section anchor="SIDLABELSUBTLV" title="SID/Label Sub-TLV">
         <t>The SID/Label Sub-TLV is present in multiple Sub-TLVs defined in
         this document and contains a SID or a MPLS Label. The SID/Label
         Sub-TLV has the following format: <figure>
@@ -218,7 +218,7 @@
 
 where:</artwork>
           </figure><list>
-            <t>Type: 1</t>
+            <t>Type: TBD, suggested value 1</t>
 
             <t>Length: variable (3 or 4)</t>
 
@@ -280,7 +280,7 @@ where:</artwork>
 
 where:</artwork>
           </figure><list style="hanging">
-            <t>Type: 3</t>
+            <t>Type: TBD, suggested value 3</t>
 
             <t>Length: variable.</t>
 
@@ -332,7 +332,7 @@ where:</artwork>
 
             <t>SID/Index: 32 bit index defining the offset in the SID/Label
             space advertised by this router using the encodings defined in
-            <xref target="SR-CAP"/>.</t>
+            <xref target="SRCAPSUBTLV"/>.</t>
           </list></t>
 
         <t>Multiple Prefix-SIDs Sub-TLVs MAY appear on the same prefix in
@@ -422,7 +422,7 @@ where:</artwork>
 
 where:</artwork>
             </figure><list style="hanging">
-              <t>Type: 31</t>
+              <t>Type: TBD, suggested value 31</t>
 
               <t>Length: variable.</t>
 
@@ -459,7 +459,7 @@ where:</artwork>
               target="I-D.filsfils-rtgwg-segment-routing"/>.</t>
 
               <t>SID/Label Sub-TLV: contains the SID/Label value as defined in
-              <xref target="SIDLABEL"/>.</t>
+              <xref target="SIDLABELSUBTLV"/>.</t>
 
               <t>An SR capable router MAY allocate an Adj-SID for each of its
               adjacencies and SHOULD set the B-Flag when the adjacency is
@@ -482,7 +482,7 @@ where:</artwork>
             </list></t>
         </section>
 
-        <section title="Adjacency Segment Identifiers in LANs">
+        <section anchor="LANADJSIDSUBTLV" title="Adjacency Segment Identifiers in LANs">
           <t>In LAN subnetworks, the Designated Intermediate System (DIS) is
           elected and originates the Pseudonode-LSP (PN-LSP) including all
           neighbors of the DIS.</t>
@@ -495,7 +495,7 @@ where:</artwork>
           part of the TLV advertising the adjacency to the DIS (e.g.:
           TLV-22).</t>
 
-          <t>The following new Sub-TLV is defined: LAN-Adj-SID (Type 32)
+          <t>The following new Sub-TLV is defined: LAN-Adj-SID (Type: TBD, suggested value 32)
           containing the set of Adj-SIDs the router assigned to each of its
           LAN neighbors.</t>
 
@@ -519,7 +519,7 @@ where:</artwork>
 
 where: </artwork>
             </figure><list style="hanging">
-              <t>Type: 32</t>
+              <t>Type: TBD, suggested value 32</t>
 
               <t>Length: variable.</t>
 
@@ -554,7 +554,7 @@ where: </artwork>
               as defined in <xref target="ISO10589"/>.</t>
 
               <t>SID/Label Sub-TLV: contains the SID/Label value as defined in
-              <xref target="SIDLABEL"/>.</t>
+              <xref target="SIDLABELSUBTLV"/>.</t>
             </list></t>
 
           <t>Multiple LAN-Adj-SID Sub-TLVs MAY be encoded.</t>
@@ -572,7 +572,7 @@ where: </artwork>
         </section>
       </section>
 
-      <section anchor="BINDING-TLV" title="SID/Label Binding TLV">
+      <section anchor="BINDINGTLV" title="SID/Label Binding TLV">
         <t>The SID/Label Binding TLV MAY be originated by any router in an
         IS-IS domain. The router may advertise a SID/Label binding to a FEC
         along with at least a single 'nexthop style' anchor. The protocol
@@ -596,8 +596,8 @@ where: </artwork>
         SID/Label Binding TLV. Note that the FEC Prefix and SID/Label Sub-TLV
         MUST be identical in both TLVs.</t>
 
-        <t>The SID/Label Binding TLV has type 149 and has the following
-        format:</t>
+        <t>The SID/Label Binding TLV has Type TBD (suggested value 149),
+	and has the following format:</t>
 
         <figure anchor="SID-MPLS-Binding-TLV-figure"
                 title="SID/Label Binding TLV format">
@@ -617,7 +617,7 @@ where: </artwork>
         </figure>
 
         <t><list style="symbols">
-            <t>Type: 149</t>
+            <t>Type: TBD, suggested value 149</t>
 
             <t>Length: variable.</t>
 
@@ -762,15 +762,15 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
         </section>
 
         <section title="SID/Label Sub-TLV">
-          <t>The SID/Label Sub-TLV (Type 1) contains the SID/Label value as
-          defined in <xref target="SIDLABEL"/>. It MUST be present in every
+          <t>The SID/Label Sub-TLV (Type: TBD, suggested value 1) contains the SID/Label value as
+          defined in <xref target="SIDLABELSUBTLV"/>. It MUST be present in every
           SID/Label Binding TLV.</t>
         </section>
 
         <!-- begin ERO Metric subTLV -->
 
-        <section anchor="METRICTLV" title="ERO Metric sub-TLV">
-          <t>ERO Metric sub-TLV (Type 2) is a Sub-TLV of the SID/Label Binding
+        <section anchor="EROMETRICSUBTLV" title="ERO Metric sub-TLV">
+          <t>ERO Metric sub-TLV (Type: TBD, suggested value 2) is a Sub-TLV of the SID/Label Binding
           TLV.</t>
 
           <t>The ERO Metric sub-TLV carries the cost of an ERO path. It is
@@ -791,7 +791,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      </artwork>
             </figure> where: <list style="hanging">
-              <t>Type: 2</t>
+              <t>Type: TBD, suggested value 2</t>
 
               <t>Length: 4</t>
 
@@ -801,8 +801,8 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 
         <!-- end ERO metric subTLV -->
 
-        <section title="IPv4 ERO subTLV">
-          <t>The IPv4 ERO subTLV (Type 3) describes a path segment using IPv4
+        <section anchor="IPV4EROSUBTLV" title="IPv4 ERO subTLV">
+          <t>The IPv4 ERO subTLV (Type: TBD, suggested value 3) describes a path segment using IPv4
           address style of encoding. Its semantics have been borrowed from
           <xref target="RFC3209"/>.</t>
 
@@ -826,8 +826,8 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 
         <!-- end IPv4 ERO subtLV -->
 
-        <section title="IPv6 ERO subTLV">
-          <t>The IPv6 ERO subTLV (Type 4) describes a path segment using IPv6
+        <section  anchor="IPV6EROSUBTLV" title="IPv6 ERO subTLV">
+          <t>The IPv6 ERO subTLV (Type: TBD, suggested value 4) describes a path segment using IPv6
           Address style of encoding. Its semantics have been borrowed from
           <xref target="RFC3209"/>.</t>
 
@@ -857,12 +857,12 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 
         <!-- end IPv6 ERO subtLV -->
 
-        <section title="Unnumbered Interface ID ERO subTLV">
+        <section anchor="UNNUMBEREDEROSUBTLV" title="Unnumbered Interface ID ERO subTLV">
           <t>The appearance and semantics of the 'Unnumbered Interface ID'
           have been borrowed from <xref target="RFC3477"> Section
           4</xref>.</t>
 
-          <t>The Unnumbered Interface-ID ERO subTLV (Type 5) describes a path
+          <t>The Unnumbered Interface-ID ERO subTLV (Type: TBD, suggested value 5) describes a path
           segment that spans over an unnumbered interface. Unnumbered
           interfaces are referenced using the interface index. Interface
           indices are assigned local to the router and therefore not unique
@@ -919,8 +919,8 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 
         <!-- end Unnumbered Interface ID ERO subtLV -->
 
-        <section title="IPv4 Backup ERO subTLV">
-          <t>The IPv4 Backup ERO subTLV (Type 6) describes a Backup path
+        <section anchor="IPV4BACKUPEROSUBTLV" title="IPv4 Backup ERO subTLV">
+          <t>The IPv4 Backup ERO subTLV (Type: TBD, suggested value 6) describes a Backup path
           segment using IPv4 Address style of encoding. Its appearance and
           semantics have been borrowed from <xref target="RFC3209"/>.</t>
 
@@ -944,8 +944,8 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 
         <!-- end IPv4 Backup ERO subtLV -->
 
-        <section title="IPv6 Backup ERO subTLV">
-          <t>The IPv6 Backup ERO subTLV (Type 7) describes a Backup path
+        <section anchor="IPV6BACKUPEROSUBTLV" title="IPv6 Backup ERO subTLV">
+          <t>The IPv6 Backup ERO subTLV (Type: TBD, suggested value 7) describes a Backup path
           segment using IPv6 Address style of encoding. Its appearance and
           semantics have been borrowed from <xref target="RFC3209"/>.</t>
 
@@ -975,12 +975,12 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 
         <!-- end IPv6 Backup ERO subtLV -->
 
-        <section title="Unnumbered Interface ID Backup ERO subTLV">
+        <section anchor="UNNUMBEREDBACKUPEROSUBTLV" title="Unnumbered Interface ID Backup ERO subTLV">
           <t>The appearance and semantics of the 'Unnumbered Interface ID'
           have been borrowed from <xref target="RFC3477"> Section
           4</xref>.</t>
 
-          <t>The Unnumbered Interface-ID Backup ERO subTLV (Type 8) describes
+          <t>The Unnumbered Interface-ID Backup ERO subTLV (Type: TBD, suggested value 8) describes
           a Backup LSP path segment that spans over an unnumbered interface.
           Unnumbered interfaces are referenced using the interface index.
           Interface indices are assigned local to the router and therefore not
@@ -1051,7 +1051,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
     </section>
 
     <section title="Router Capabilities">
-      <section anchor="SR-CAP" title="SR-Capabilities Sub-TLV">
+      <section anchor="SRCAPSUBTLV" title="SR-Capabilities Sub-TLV">
         <t>Segment Routing requires each router to advertise its SR data-plane
         capability and the range of SID/Label values it uses for Segment
         Routing. Data-plane capabilities and SID/Label ranges are advertised
@@ -1065,7 +1065,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
         boundaries. Therefore Router Capability TLV distribution flags MUST be
         set accordingly, i.e.: the S flag MUST be unset.</t>
 
-        <t>The SR Capabilities Sub-TLV (Type 2) is optional, MAY appear
+        <t>The SR Capabilities Sub-TLV (Type: TBD, suggested value 2) is optional, MAY appear
         multiple times inside the Router Capability TLV and has following
         format: <figure>
             <artwork>
@@ -1078,7 +1078,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+   
   </artwork>
           </figure> where: <list style="hanging">
-            <t>Type: 2</t>
+            <t>Type: TBD, suggested value 2</t>
 
             <t>Length: variable.</t>
 
@@ -1103,7 +1103,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
             Sub-TLV.</t>
 
             <t>SID/Label Sub-TLV: SID/Label value as defined in <xref
-            target="SIDLABEL"/>.</t>
+            target="SIDLABELSUBTLV"/>.</t>
           </list></t>
 
         <t>Multiple occurrence of the SR-Capabilities Sub-TLV MAY be
@@ -1156,11 +1156,11 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
           </figure></t>
       </section>
 
-      <section anchor="SR-ALGO" title="SR-Algorithm Sub-TLV">
+      <section anchor="SRALGOSUBTLV" title="SR-Algorithm Sub-TLV">
         <t>The router may use various algorithms when calculating reachability
         to other nodes or to prefixes attached to these nodes. Examples of
         these algorithms are metric based Shortest Path First (SPF), various
-        sorts of Constrained SPF, etc. The SR-Algorithm Sub-TLV (Type 15)
+        sorts of Constrained SPF, etc. The SR-Algorithm Sub-TLV (Type: TBD, suggested value 19)
         allows the router to advertise the algorithms that the router is
         currently using. The following value has been defined:<list>
             <t>0: Shortest Path First (SPF) algorithm based on link
@@ -1190,7 +1190,7 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </artwork>
           </figure> where: <list style="hanging">
-            <t>Type: 15</t>
+            <t>Type: TBD, suggested value 19</t>
 
             <t>Length: variable.</t>
 
@@ -1204,229 +1204,139 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
       <t>This documents request allocation for the following TLVs and
       subTLVs.</t>
 
-      <?rfc needLines="18" ?>
-
-      <texttable anchor="iana_table" title="IANA allocations">
-        <ttcol align="center">PDU</ttcol>
-
-        <ttcol align="left">TLV</ttcol>
-
-        <ttcol align="left">subTLV</ttcol>
-
-        <ttcol align="left">Type</ttcol>
-
-        <ttcol align="left">subType</ttcol>
-
-        <ttcol align="right">#Occurence</ttcol>
-
-        <c>LSP</c>
-
-        <c>IS Neighbor</c>
-
-        <c/>
-
-        <c>22, 23, 222, 223</c>
-
-        <c/>
-
-        <c>&gt;=0</c>
-
-        <c/>
-
-        <c/>
-
-        <c>SID/Label</c>
-
-        <c/>
-
-        <c>31</c>
-
-        <c>&gt;0</c>
-
-        <c/>
-
-        <c/>
-
-        <c>LAN SID/Label</c>
-
-        <c/>
-
-        <c>32</c>
-
-        <c>&gt;0</c>
-
-        <c>LSP</c>
-
-        <c>IP reachability</c>
-
-        <c/>
-
-        <c>135, 235, 236, 237</c>
-
-        <c/>
-
-        <c>&gt;=0</c>
-
-        <c/>
-
-        <c/>
-
-        <c>SID/Label</c>
-
-        <c/>
-
-        <c>3</c>
-
-        <c>&gt;0</c>
-
-        <c>LSP</c>
-
-        <c>SID/MPLS Binding</c>
-
-        <c/>
-
-        <c>149</c>
-
-        <c/>
-
-        <c>&gt;=0</c>
-
-        <c/>
-
-        <c/>
-
-        <c>SID/Label</c>
-
-        <c/>
-
-        <c>1</c>
-
-        <c>&gt;0</c>
-
-        <c/>
-
-        <c/>
-
-        <c>ERO Metric</c>
-
-        <c/>
-
-        <c>2</c>
-
-        <c>1</c>
-
-        <c/>
-
-        <c/>
-
-        <c>IPv4 ERO</c>
-
-        <c/>
-
-        <c>3</c>
-
-        <c>&gt;=0</c>
-
-        <c/>
-
-        <c/>
-
-        <c>IPv6 ERO</c>
-
-        <c/>
-
-        <c>4</c>
-
-        <c>&gt;=0</c>
-
-        <c/>
-
-        <c/>
-
-        <c>Unnumbered Interface ID ERO</c>
-
-        <c/>
-
-        <c>5</c>
-
-        <c>&gt;=0</c>
-
-        <c/>
-
-        <c/>
-
-        <c>IPv4 Backup ERO</c>
-
-        <c/>
-
-        <c>6</c>
-
-        <c>&gt;=0</c>
-
-        <c/>
-
-        <c/>
-
-        <c>IPv6 Backup ERO</c>
-
-        <c/>
-
-        <c>7</c>
-
-        <c>&gt;=0</c>
-
-        <c/>
-
-        <c/>
-
-        <c>Unnumbered Interface ID Backup ERO</c>
-
-        <c/>
-
-        <c>8</c>
-
-        <c>&gt;=0</c>
-
-        <c>LSP</c>
-
-        <c>Router Capability</c>
-
-        <c/>
-
-        <c>242</c>
-
-        <c/>
-
-        <c>&gt;=0</c>
-
-        <c/>
-
-        <c/>
-
-        <c>SR Capability</c>
-
-        <c/>
-
-        <c>2</c>
-
-        <c>&gt;=0</c>
-
-        <c/>
-
-        <c/>
-
-        <c>SR Algorithm</c>
-
-        <c/>
-
-        <c>15</c>
-
-        <c>1</c>
-      </texttable>
-
-      <t>The SID/MPLS Binding TLV requires a new sub-registry. Type value 149
-      has been assigned, with a starting sub-TLV value of 1, range from 1-255,
-      and managed by Expert Review.</t>
+      <section title="Sub TLVs for Type 22,23,222 and 223">
+	<t>This document makes the following registrations in the
+	"Sub-TLVs for TLV 22, 23, 222 and 223" registry.
+	</t>
+
+	<t><list>
+	  <t><list>
+	    <t>Type: TBD (suggested value 31)</t>
+	    <t>Description: Adjacency Segment Identifier</t>
+	    <t>TLV 22: yes</t>
+	    <t>TLV 23: yes</t>
+	    <t>TLV 222: yes</t>
+	    <t>TLV 223: yes</t>
+	    <t>Reference: <xref target="ADJSIDSUBTLV">This document</xref></t>
+	  </list></t>
+
+	  <t><list>
+	    <t>Type: TBD (suggested value 32)</t>
+	    <t>Description: LAN Adjacency Segment Identifier</t>
+	    <t>TLV 22: yes</t>
+	    <t>TLV 23: yes</t>
+	    <t>TLV 222: yes</t>
+	    <t>TLV 223: yes</t>
+	    <t>Reference: <xref target="LANADJSIDSUBTLV">This document</xref></t>
+	  </list></t>
+	</list></t>
+      </section>
+
+      <section title="Sub TLVs for Type 135,235,236 and 237">
+	<t>This document makes the following registrations in the
+	"Sub-TLVs for TLV 135,235,236 and 237" registry.
+	</t>
+
+	<t><list>
+	  <t>Type: TBD (suggested value 3)</t>
+	  <t>Description: Prefix Segment Identifier</t>
+	  <t>TLV 135: yes</t>
+	  <t>TLV 235: yes</t>
+	  <t>TLV 236: yes</t>
+	  <t>TLV 237: yes</t>
+	  <t>Reference: <xref target="PREFIXSIDSUBTLV">This document</xref></t>
+	</list></t>
+      </section>
+
+      <section title="Sub TLVs for Type 242">
+	<t>This document makes the following registrations in the
+	"Sub-TLVs for TLV 242" registry.
+	</t>
+
+	<t><list>
+	  <t><list>
+	    <t>Type: TBD (suggested value 2)</t>
+	    <t>Description: Segment Routing Capability</t>
+	    <t>Reference: <xref target="SRCAPSUBTLV">This document</xref></t>
+	  </list></t>
+
+	  <t><list>
+	    <t>Type: TBD (suggested value 19)</t>
+	    <t>Description: Segment Routing Algorithm</t>
+	    <t>Reference: <xref target="SRALGOSUBTLV">This document</xref></t>
+	  </list></t>
+	</list></t>
+      </section>
+
+      <section title="New TLV Codepoint and Sub-TLV registry">
+	<t>This document registers the following TLV:</t>
+
+	<t><list>
+	  <t>Type: TBD (suggested value 149)</t>
+	  <t>name: Segment Identifier / Label Binding</t>
+	  <t>IIH: no</t>
+	  <t>LSP: yes</t>
+	  <t>SNP: no</t>
+	  <t>Purge: no</t>
+	  <t>Reference: <xref target="BINDINGTLV">This document</xref></t>
+	</list></t>
+
+	<t>This document creates the following Sub-TLV Registry:</t>
+
+	<t><list>
+	  <t>Registry: Sub-TLVs for TLV 149</t>
+	  <t>Registration Procedure: Expert review</t>
+	  <t>Reference: <xref target="BINDINGTLV">This document</xref></t>
+
+	  <t><list>
+	    <t>Type: TBD, suggested value 1</t>
+	    <t>Description: SID/Label</t>
+	    <t>Reference: <xref target="SIDLABELSUBTLV">This document</xref></t>
+	  </list></t>
+
+	  <t><list>
+	    <t>Type: TBD, suggested value 2</t>
+	    <t>Description: ERO Metric</t>
+	    <t>Reference: <xref target="EROMETRICSUBTLV">This document</xref></t>
+	  </list></t>
+
+	  <t><list>
+	    <t>Type: TBD, suggested value 3</t>
+	    <t>Description: IPv4 ERO</t>
+	    <t>Reference: <xref target="IPV4EROSUBTLV">This document</xref></t>
+	  </list></t>
+
+	  <t><list>
+	    <t>Type: TBD, suggested value 4</t>
+	    <t>Description: IPv6 ERO</t>
+	    <t>Reference: <xref target="IPV6EROSUBTLV">This document</xref></t>
+	  </list></t>
+
+	  <t><list>
+	    <t>Type: TBD, suggested value 5</t>
+	    <t>Description: Unnumbered Interface-ID ERO</t>
+	    <t>Reference: <xref target="UNNUMBEREDEROSUBTLV">This document</xref></t>
+	  </list></t>
+
+	  <t><list>
+	    <t>Type: TBD, suggested value 6</t>
+	    <t>Description: IPv4 Backup ERO</t>
+	    <t>Reference: <xref target="IPV4BACKUPEROSUBTLV">This document</xref></t>
+	  </list></t>
+
+	  <t><list>
+	    <t>Type: TBD, suggested value 7</t>
+	    <t>Description: IPv6 Backup ERO</t>
+	    <t>Reference: <xref target="IPV6BACKUPEROSUBTLV">This document</xref></t>
+	  </list></t>
+
+	  <t><list>
+	    <t>Type: TBD, suggested value 8</t>
+	    <t>Description: Unnumbered Interface-ID Backup ERO</t>
+	    <t>Reference: <xref target="UNNUMBEREDBACKUPEROSUBTLV">This document</xref></t>
+	  </list></t>
+	</list></t>
+      </section>
     </section>
 
     <section anchor="Manageability" title="Manageability Considerations">
