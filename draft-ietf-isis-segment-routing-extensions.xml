@@ -133,7 +133,7 @@
       </address>
     </author>
 
-    <date day="7" month="April" year="2014"/>
+    <date day="11" month="April" year="2014"/>
 
     <area>Routing</area>
 
@@ -1117,13 +1117,15 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
             within the same LSP fragment. </t>
 
             <t>The order of the ranges (i.e.: SR-Capability Sub-TLVs) in the
-            LSP fragment is decided by the originator and the receiver routers
-            MUST NOT re-order the received ranges.</t>
+            LSP fragment is decided by the originating router and hence the receiving routers
+            MUST NOT re-order the received ranges. This is required for
+	    avoiding label churn when for example a numerical lower Segment/Label Block
+	    gets added to an already advertised Segment/Label Block.</t>
 
             <t>The originating router decides the order of the set of
             originated SR-Capability Sub-TLV (sorted or not). In all cases,
             the originating router SHOULD ensure the order is same after a
-            graceful restart (using checkpointing or any other mechanism) in
+            graceful restart (using checkpointing, non-volatile storage or any other mechanism) in
             order to guarantee the same order before and after GR.</t>
           </list></t>
 
