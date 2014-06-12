@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-isis-segment-routing-extensions-01"
+<rfc category="std" docName="draft-ietf-isis-segment-routing-extensions-02"
      ipr="trust200902">
   <front>
     <title abbrev="IS-IS Extensions for Segment Routing">IS-IS Extensions for
@@ -151,7 +151,7 @@
       </address>
     </author>
 
-    <date day="06" month="June" year="2014"/>
+    <date day="12" month="June" year="2014"/>
 
     <area>Routing</area>
 
@@ -353,6 +353,12 @@ where:</artwork>
         which case each SID is encoded as a separate Sub-TLV. When multiple
         Prefix-SID Sub-TLVs are present, the receiving router MUST use the
         first encoded SID and MAY use the subsequent ones.</t>
+
+        <t>When propagating TLVs that contain multiple Prefix-SIDs between
+        levels, an implementation SHOULD preserve the ordering such that the
+        first Prefix-SID remains the first, so that implementations that only
+        recognize a single Prefix-SID will have a consistent view across
+        levels.</t>
 
         <t>The R-Flag MUST be set for prefixes that are not local to the
         router and either:<list style="hanging">
@@ -675,15 +681,11 @@ where:</artwork>
           </figure><list>
             <t>Type: TBD, suggested value 1</t>
 
-            <t>Length: variable (3 or 4)</t>
+            <t>Length: variable </t>
 
             <t>SID/Label: if length is set to 3 then the 20 rightmost bits
-            represent a MPLS label. If length is 4 then the value represents a
-            32 bits SID.</t>
+            represent a MPLS label. </t>
           </list></t>
-
-        <t>The receiving router MUST silently ignore SID/Label sub-TLVs whose
-        length is different from 3 and 4.</t>
       </section>
 
       <section anchor="BINDINGTLV" title="SID/Label Binding TLV">
@@ -1602,9 +1604,9 @@ Router-D: 192.0.2.4/32, Prefix-SID: Index 4
     </references>
 
     <references title="Informative References">
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-spring-segment-routing-02.xml"?>
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-spring-segment-routing-03.xml"?>
 
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-previdi-6man-segment-routing-header-00.xml"?>
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-previdi-6man-segment-routing-header-01.xml"?>
 
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-spring-segment-routing-use-cases-00.xml"?>
     </references>
