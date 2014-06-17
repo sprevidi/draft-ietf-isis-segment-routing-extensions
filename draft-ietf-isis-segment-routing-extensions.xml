@@ -344,8 +344,6 @@ where:</artwork>
 
                 <t>A 24 bit label where the 20 rightmost bits are used for
                 encoding the label value.</t>
-
-                <t>A variable length SID (e.g.: an IPv6 address SID).</t>
               </list></t>
           </list></t>
 
@@ -681,10 +679,10 @@ where:</artwork>
           </figure><list>
             <t>Type: TBD, suggested value 1</t>
 
-            <t>Length: variable </t>
+            <t>Length: variable</t>
 
             <t>SID/Label: if length is set to 3 then the 20 rightmost bits
-            represent a MPLS label. </t>
+            represent a MPLS label.</t>
           </list></t>
       </section>
 
